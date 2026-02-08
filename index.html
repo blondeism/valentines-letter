@@ -16,9 +16,10 @@
         .error p { font-size: 14px; color: #9ca3af; line-height: 1.7; margin-bottom: 28px; }
         .error ul { font-size: 13px; color: #6b7280; margin-bottom: 36px; padding-left: 18px; }
         .error button { font-family: inherit; background: #1a1a1a; border: 1px solid #333; color: #e5e7eb; padding: 10px 22px; cursor: pointer; }
-        body.card-mode { font-family: 'Crimson Text', serif; background: #111; color: #fff; justify-content: center; padding-top: 50px; }
+        body.card-mode { font-family: 'Crimson Text', serif; background: #111; color: #fff; justify-content: center; padding-top: 20px; }
         .handwritten { font-family: 'Dancing Script', cursive; }
         .perspective { perspective: 1500px; }
+        @media (max-width: 480px) { .envelope-wrapper { transform: scale(0.85); } }
     </style>
 </head>
 <body>
@@ -39,34 +40,36 @@
 function showValentine() {
     document.body.classList.add('card-mode');
     document.body.innerHTML = `
-    <div class="relative w-full max-w-[480px] aspect-[16/11] group perspective mx-auto">
+    <div class="envelope-wrapper relative w-[95%] sm:w-full max-w-[480px] aspect-[16/11] group perspective mx-auto">
+        
         <div class="absolute inset-x-0 mx-auto w-[92%] h-[95%] bg-[#fcfaf7] shadow-2xl border border-zinc-200 p-6 
                     transition-all duration-700 ease-in-out z-0
                     group-hover:-translate-y-64 group-hover:z-50">
             
-            <div class="h-full border border-red-100 p-4 flex flex-col justify-between relative overflow-y-auto">
+            <div class="h-full border border-red-100 p-4 flex flex-col justify-between relative">
                 <div class="flex justify-between items-start">
-                    <div class="space-y-1">
+                    <div class="space-y-2 pr-20"> 
                         <h2 class="handwritten text-2xl text-zinc-800">My Dearest, Sharika,</h2>
-                        <p class="text-[11px] italic text-zinc-600 max-w-[240px] leading-snug">
-                            As I write this, I think of the way your lips curl into this damning smile and how I can't seem to wipe every bit of me clean... 
-                            What a beautiful privilege it is to love you in every love language; html code, words of affirmation to gift giving, and these little big things that only we know about. Happy Valentine's day, my love!
+                        <p class="text-[12px] text-zinc-600 leading-relaxed text-justify" style="text-align-last: left; text-justify: inter-word;">
+                            As I write this, I think of the way your lips curl into this damning smile and how I can't seem to wipe every bit of me clean, not with the way you've colored me all over. 
+                            What a beautiful privilege it is to love you and be loved by you in every love language; html code, words of affirmation to gift giving, and these little big things that only we know about. 
+                            Happy Valentine's day, my love!
                         </p>
                     </div>
-                    <div class="w-12 h-16 border border-dotted border-zinc-300 bg-zinc-50 p-1 flex-shrink-0">
+                    <div class="absolute top-4 right-4 w-12 h-16 border border-zinc-300 bg-zinc-50 p-1 flex-shrink-0 shadow-sm">
                         <div class="w-full h-full bg-center bg-cover" style="background-image: url('lily.jpg')"></div>
                     </div>
                 </div>
 
-                <div class="my-2">
-                    <iframe style="border-radius:8px" src="https://open.spotify.com/embed/track/1o82DwNisONAd2mu1RcGE6" width="100%" height="80" frameBorder="0" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>
+                <div class="my-1">
+                    <iframe style="border-radius:8px" src="https://open.spotify.com/embed/track/YOUR_ID_HERE2" width="100%" height="80" frameBorder="0" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>
                 </div>
 
                 <div class="text-center">
                     <p class="text-md font-bold text-red-900 italic uppercase tracking-widest">
-                        Be my Valentine?
+                        Will you be my Valentine?
                     </p>
-                    <button onclick="celebrate()" class="mt-2 bg-red-800 text-white px-4 py-1 rounded-full text-xs uppercase tracking-widest hover:bg-red-700 transition">Yes!</button>
+                    <button onclick="celebrate()" class="mt-2 bg-red-800 text-white px-6 py-1 rounded-full text-xs uppercase tracking-widest hover:bg-red-700 transition shadow-md">Yes!</button>
                 </div>
 
                 <div class="flex justify-between items-end border-t border-red-50 pt-2">
@@ -82,20 +85,18 @@ function showValentine() {
         </div>
 
         <div class="absolute inset-0 bg-white border border-zinc-200 shadow-xl z-20 overflow-hidden">
-            <div class="absolute inset-0 z-20" style="background: linear-gradient(35deg, #ffffff 50%, #f9f9f9 50.1%);"></div>
-            <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-40 transition-transform duration-500 group-hover:scale-110 group-hover:rotate-12">
-                <div class="w-14 h-14 bg-red-800 rounded-full shadow-lg border border-red-900 flex items-center justify-center">
-                    <span class="text-red-300 text-lg">˚ʚ♡ɞ˚</span>
-                </div>
-            </div>
+            <div class="absolute inset-0 z-20" style="background: linear-gradient(35deg, #ffffff 50%, #f9f9f9 50.1%); border-bottom: 1px solid #efefef;"></div>
             <div class="absolute bottom-8 w-full text-center z-40">
-                <p class="text-red-900 font-bold uppercase tracking-[0.4em] text-[11px]">HI BABYYYYY!</p>
+                <p class="text-red-900 font-bold uppercase tracking-[0.4em] text-[11px]">PLEASE OPEN ME, PRETTY GIRL!</p>
             </div>
         </div>
 
         <div class="absolute top-0 left-0 w-full h-1/2 bg-zinc-100 origin-top transition-transform duration-500 ease-in-out 
-                    group-hover:[transform:rotateX(180deg)] z-30 shadow-sm"
+                    group-hover:[transform:rotateX(180deg)] z-30 shadow-sm flex items-end justify-center pb-2"
              style="clip-path: polygon(0 0, 50% 100%, 100% 0);">
+             <div class="w-10 h-10 bg-red-800 rounded-full shadow-lg border border-red-900 flex items-center justify-center transform translate-y-5">
+                <span class="text-red-300 text-xs">˚ʚ♡ɞ˚</span>
+             </div>
         </div>
     </div>
     
@@ -108,26 +109,16 @@ function showValentine() {
 function celebrate() {
     const duration = 5 * 1000;
     const animationEnd = Date.now() + duration;
-
     const interval = setInterval(function() {
         const timeLeft = animationEnd - Date.now();
         if (timeLeft <= 0) return clearInterval(interval);
-
+        confetti({ particleCount: 25, spread: 60, origin: { y: 0.7 }, colors: ['#ff0000', '#ff69b4'] });
         confetti({
-            particleCount: 25,
-            spread: 60,
-            origin: { y: 0.7 },
-            colors: ['#ff0000', '#ff69b4']
-        });
-
-        confetti({
-            particleCount: 10,
+            particleCount: 12,
             spread: 50,
             origin: { y: 0.7 },
             shapes: ['text'],
-            shapeOptions: {
-                text: { value: ['🌸', '🌹', '🌷', '🌻', '🤍'] }
-            },
+            shapeOptions: { text: { value: ['🌸', '🌹', '🌷', '🌻', '🤍'] } },
             scalar: 2.5 
         });
     }, 250);
