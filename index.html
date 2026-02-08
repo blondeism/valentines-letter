@@ -1,118 +1,110 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>ERROR 371</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<script src="https://cdn.tailwindcss.com"></script>
-<link href="https://fonts.googleapis.com/css2?family=Crimson+Text:ital,wght@0,400;0,700;1,400&family=Dancing+Script:wght@600&display=swap" rel="stylesheet">
-<style>
-* { box-sizing: border-box; margin: 0; padding: 0; }
-body { height: 100vh; background: #0f0f0f; color: #e5e7eb; display: flex; align-items: center; justify-content: center; font-family: Consolas, Menlo, monospace; }
-
-
-.error { width: 100%; max-width: 760px; padding: 48px; }
-.error h1 { font-size: 64px; margin-bottom: 6px; }
-.error h2 { font-size: 20px; font-weight: normal; margin-bottom: 20px; }
-.error p { font-size: 14px; color: #9ca3af; line-height: 1.7; margin-bottom: 28px; }
-.error ul { font-size: 13px; color: #6b7280; margin-bottom: 36px; padding-left: 18px; }
-.error button { font-family: inherit; background: #1a1a1a; border: 1px solid #333; color: #e5e7eb; padding: 10px 22px; cursor: pointer; }
-
-
-body.card-mode { font-family: 'Crimson Text', serif; background: #111; color: #fff; justify-content: flex-start; padding-top: 50px; }
-.handwritten { font-family: 'Dancing Script', cursive; }
-.perspective { perspective: 1500px; }
-</style>
+    <meta charset="UTF-8">
+    <title>ERROR 371</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Crimson+Text:ital,wght@0,400;0,700;1,400&family=Dancing+Script:wght@600&display=swap" rel="stylesheet">
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { height: 100vh; background: #0f0f0f; color: #e5e7eb; display: flex; align-items: center; justify-content: center; font-family: Consolas, Menlo, monospace; overflow: hidden; }
+        .error { width: 100%; max-width: 760px; padding: 48px; }
+        .error h1 { font-size: 64px; margin-bottom: 6px; }
+        .error h2 { font-size: 20px; font-weight: normal; margin-bottom: 20px; }
+        .error p { font-size: 14px; color: #9ca3af; line-height: 1.7; margin-bottom: 28px; }
+        .error ul { font-size: 13px; color: #6b7280; margin-bottom: 36px; padding-left: 18px; }
+        .error button { font-family: inherit; background: #1a1a1a; border: 1px solid #333; color: #e5e7eb; padding: 10px 22px; cursor: pointer; }
+        body.card-mode { font-family: 'Crimson Text', serif; background: #111; color: #fff; justify-content: center; padding-top: 50px; }
+        .handwritten { font-family: 'Dancing Script', cursive; }
+        .perspective { perspective: 1500px; }
+    </style>
 </head>
 <body>
 
-
 <div class="error" id="error">
-  <h1>ERROR 371</h1>
-  <h2>Sorry, my pretty girl!</h2>
-  <p>The requested resource could not be found on this server. Please try again.</p>
-  <ul>
-    <li>The URL was probably wrong but you're everything that went right.</li>
-    <li>The resource may no longer exist but this love I got for you is 5ever.</li>
-    <li>Please try again later, mon amour. I lied, try again neow.</li>
-  </ul>
-  <button onclick="showValentine()">Refresh</button>
+    <h1>ERROR 371</h1>
+    <h2>Sorry, my pretty girl!</h2>
+    <p>The requested resource could not be found on this server. Please try again.</p>
+    <ul>
+        <li>The URL was probably wrong but you're everything that went right.</li>
+        <li>The resource may no longer exist but this love I got for you is 5ever.</li>
+        <li>Please try again later, mon amour. I lied, try again neow.</li>
+    </ul>
+    <button onclick="showValentine()">Refresh</button>
 </div>
 
 <script>
 function showValentine() {
-
     document.body.classList.add('card-mode');
     document.body.innerHTML = `
     <div class="relative w-full max-w-[480px] aspect-[16/11] group perspective mx-auto">
-    
-    <div class="absolute inset-x-0 mx-auto w-[92%] h-[95%] bg-[#fcfaf7] shadow-2xl border border-zinc-200 p-8 
-                transition-all duration-700 ease-in-out z-0
-                group-hover:-translate-y-52 group-hover:z-50">
-        
-        <div class="h-full border border-red-100 p-5 flex flex-col justify-between relative">
+        <div class="absolute inset-x-0 mx-auto w-[92%] h-[95%] bg-[#fcfaf7] shadow-2xl border border-zinc-200 p-6 
+                    transition-all duration-700 ease-in-out z-0
+                    group-hover:-translate-y-64 group-hover:z-50">
             
-            <div class="flex justify-between items-start">
-                <div class="space-y-2">
-                    <h2 class="handwritten text-3xl text-zinc-800">My Dearest, Sharika,</h2>
-                    <p class="text-sm italic text-zinc-600 max-w-[220px] leading-relaxed">
- As I write this, I think of the way your lips curl into this damning smile and how I can't seem to wipe every bit of me clean, not with the way you've colored me all over. 
- What a beautiful privilege it is to love you and be loved by you in every love language; html code, words of affirmation to gift giving, and these little big things that only we know about. 
- Happy Valentine's day, my love! And if it's not too much...
+            <div class="h-full border border-red-100 p-4 flex flex-col justify-between relative overflow-y-auto">
+                <div class="flex justify-between items-start">
+                    <div class="space-y-1">
+                        <h2 class="handwritten text-2xl text-zinc-800">My Dearest, Sharika,</h2>
+                        <p class="text-[11px] italic text-zinc-600 max-w-[240px] leading-snug">
+                            As I write this, I think of the way your lips curl into this damning smile and how I can't seem to wipe every bit of me clean... 
+                            What a beautiful privilege it is to love you. Happy Valentine's day, my love!
+                        </p>
+                    </div>
+                    <div class="w-12 h-16 border border-dotted border-zinc-300 bg-zinc-50 p-1 flex-shrink-0">
+                        <div class="w-full h-full bg-center bg-cover" style="background-image: url('lily.jpg')"></div>
+                    </div>
+                </div>
+
+                <div class="my-2">
+                    <iframe style="border-radius:8px" src="https://open.spotify.com/embed/track/YOUR_ACTUAL_ID" width="100%" height="80" frameBorder="0" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>
+                </div>
+
+                <div class="text-center">
+                    <p class="text-md font-bold text-red-900 italic uppercase tracking-widest">
+                        Be my Valentine?
                     </p>
+                    <button onclick="celebrate()" class="mt-2 bg-red-800 text-white px-4 py-1 rounded-full text-xs uppercase tracking-widest hover:bg-red-700 transition">Yes!</button>
                 </div>
-                <div class="w-14 h-20 border border-dotted border-zinc-300 bg-zinc-50 flex flex-col items-center justify-center p-1">
-                     <div class="text-[8px] uppercase tracking-widest text-zinc-400">Post</div>
-                    <div class="w-full h-full bg-center bg-cover"
-            <div class="text-center">
-                <p class="text-xl font-bold text-red-900 italic uppercase tracking-[0.15em]">
-                    May I have the priviledge of being your Valentine?
-                </p>
-            </div>
 
-            <div class="flex justify-between items-end border-t border-red-50/50 pt-4">
-                <div class="text-[9px] text-red-800/60 uppercase tracking-widest italic leading-tight max-w-[140px]">
-                    Surprise! Told you, I got "work." hehe :3
+                <div class="flex justify-between items-end border-t border-red-50 pt-2">
+                    <div class="text-[8px] text-red-800/60 uppercase tracking-widest italic max-w-[140px]">
+                        Surprise! Told you, I got "work." hehe :3
+                    </div>
+                    <div class="text-right">
+                        <p class="text-[9px] text-zinc-400 uppercase tracking-widest">Always,</p>
+                        <p class="handwritten text-xl text-red-900">— Yours, A.</p>
+                    </div>
                 </div>
-                <div class="text-right">
-                    <p class="text-[10px] text-zinc-400 uppercase tracking-widest">Always,</p>
-                    <p class="handwritten text-2xl text-red-900">— Yours, A.</p>
-                </div>
-            <div class="w-14 h-20 border border-dotted border-zinc-300 bg-zinc-50 flex flex-col items-center justify-center p-1">
-     <div class="text-[8px] uppercase tracking-widest text-zinc-400">Post</div>
-     <div class="w-full h-full bg-center bg-cover" style="background-image: url('lily.jpg')"></div>
-</div>
-
-            <!-- Moved Hover to Open inside the card -->
-          
-        </div>
-    <div class="my-4">
-    <iframe style="border-radius:12px" src="https://open.spotify.com/embed/track/YOUR_ACTUAL_ID" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
-</div>
-
-    <div class="absolute inset-0 bg-white border border-zinc-200 shadow-xl z-100 overflow-hidden">
-        <div class="absolute inset-0 z-20" style="background: linear-gradient(35deg, #ffffff 50%, #f9f9f9 50.1%);"></div>
-        
-        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-40 transition-transform duration-500 group-hover:scale-110 group-hover:rotate-12">
-            <div class="w-14 h-14 bg-red-800 rounded-full shadow-lg border border-red-900 flex items-center justify-center">
-                <span class="text-red-300 text-lg">˚ʚ♡ɞ˚</span>
             </div>
         </div>
 
-        <div class="absolute bottom-8 w-full text-center z-40">
-            <p class="text-red-900 font-bold uppercase tracking-[0.4em] text-[11px]">HI BABYYYYY!</p>
+        <div class="absolute inset-0 bg-white border border-zinc-200 shadow-xl z-20 overflow-hidden">
+            <div class="absolute inset-0 z-20" style="background: linear-gradient(35deg, #ffffff 50%, #f9f9f9 50.1%);"></div>
+            <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-40 transition-transform duration-500 group-hover:scale-110 group-hover:rotate-12">
+                <div class="w-14 h-14 bg-red-800 rounded-full shadow-lg border border-red-900 flex items-center justify-center">
+                    <span class="text-red-300 text-lg">˚ʚ♡ɞ˚</span>
+                </div>
+            </div>
+            <div class="absolute bottom-8 w-full text-center z-40">
+                <p class="text-red-900 font-bold uppercase tracking-[0.4em] text-[11px]">HI BABYYYYY!</p>
+            </div>
+        </div>
+
+        <div class="absolute top-0 left-0 w-full h-1/2 bg-zinc-100 origin-top transition-transform duration-500 ease-in-out 
+                    group-hover:[transform:rotateX(180deg)] z-30 shadow-sm"
+             style="clip-path: polygon(0 0, 50% 100%, 100% 0);">
         </div>
     </div>
-
-    <div class="absolute top-0 left-0 w-full h-1/2 bg-zinc-100 origin-top transition-transform duration-500 ease-in-out 
-                group-hover:[transform:rotateX(180deg)] z-30 shadow-sm"
-         style="clip-path: polygon(0 0, 50% 100%, 100% 0);">
+    
+    <div class="absolute bottom-10 left-1/2 -translate-x-1/2 text-zinc-500 text-[10px] uppercase tracking-[0.4em] animate-pulse">
+        Hover to Open
     </div>
+    `;
+}
 
-</div>
-  <div class="absolute bottom-2 left-1/2 -translate-x-1/2 text-zinc-600 text-[10px] uppercase tracking-[0.4em] animate-pulse text-center">
-                Hover to Open
-            </div>
 function celebrate() {
     const duration = 5 * 1000;
     const animationEnd = Date.now() + duration;
@@ -121,7 +113,6 @@ function celebrate() {
         const timeLeft = animationEnd - Date.now();
         if (timeLeft <= 0) return clearInterval(interval);
 
-        // Standard pink/red confetti
         confetti({
             particleCount: 25,
             spread: 60,
@@ -129,7 +120,6 @@ function celebrate() {
             colors: ['#ff0000', '#ff69b4']
         });
 
-        // Flower emojis for the bouquet effect
         confetti({
             particleCount: 10,
             spread: 50,
@@ -141,8 +131,6 @@ function celebrate() {
             scalar: 2.5 
         });
     }, 250);
-}
-    `;
 }
 </script>
 
