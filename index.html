@@ -54,7 +54,7 @@ function showValentine() {
             
             <div class="flex justify-between items-start">
                 <div class="space-y-2">
-                    <h2 class="handwritten text-3xl text-zinc-800">Dear [Name],</h2>
+                    <h2 class="handwritten text-3xl text-zinc-800">My Dearest, Sharika,</h2>
                     <p class="text-sm italic text-zinc-600 max-w-[220px] leading-relaxed">
  As I write this, I think of the way your lips curl into this damning smile and how I can't seem to wipe every bit of me clean, not with the way you've colored me all over. 
  What a beautiful privilege it is to love you and be loved by you in every love language; html code, words of affirmation to gift giving, and these little big things that only we know about. 
@@ -63,12 +63,7 @@ function showValentine() {
                 </div>
                 <div class="w-14 h-20 border border-dotted border-zinc-300 bg-zinc-50 flex flex-col items-center justify-center p-1">
                      <div class="text-[8px] uppercase tracking-widest text-zinc-400">Post</div>
-                    <div class="w-full h-full bg-center bg-cover" 
-     style="background-image: url('lily.jpg')">
-</div>
-
-<img src="lily.jpg" class="rounded-lg shadow-md" alt="Flowers">
-
+                    <div class="w-full h-full bg-center bg-cover"
             <div class="text-center">
                 <p class="text-xl font-bold text-red-900 italic uppercase tracking-[0.15em]">
                     May I have the priviledge of being your Valentine?
@@ -81,14 +76,19 @@ function showValentine() {
                 </div>
                 <div class="text-right">
                     <p class="text-[10px] text-zinc-400 uppercase tracking-widest">Always,</p>
-                    <p class="handwritten text-2xl text-red-900">Your Admirer</p>
+                    <p class="handwritten text-2xl text-red-900">— Yours, A.</p>
                 </div>
-            </div>
+            <div class="w-14 h-20 border border-dotted border-zinc-300 bg-zinc-50 flex flex-col items-center justify-center p-1">
+     <div class="text-[8px] uppercase tracking-widest text-zinc-400">Post</div>
+     <div class="w-full h-full bg-center bg-cover" style="background-image: url('lily.jpg')"></div>
+</div>
 
             <!-- Moved Hover to Open inside the card -->
           
         </div>
-    </div>
+    <div class="my-4">
+    <iframe style="border-radius:12px" src="https://open.spotify.com/embed/track/YOUR_ACTUAL_ID" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+</div>
 
     <div class="absolute inset-0 bg-white border border-zinc-200 shadow-xl z-100 overflow-hidden">
         <div class="absolute inset-0 z-20" style="background: linear-gradient(35deg, #ffffff 50%, #f9f9f9 50.1%);"></div>
@@ -100,7 +100,7 @@ function showValentine() {
         </div>
 
         <div class="absolute bottom-8 w-full text-center z-40">
-            <p class="text-red-900 font-bold uppercase tracking-[0.4em] text-[11px]">YOU AND I</p>
+            <p class="text-red-900 font-bold uppercase tracking-[0.4em] text-[11px]">HI BABYYYYY!</p>
         </div>
     </div>
 
@@ -113,7 +113,35 @@ function showValentine() {
   <div class="absolute bottom-2 left-1/2 -translate-x-1/2 text-zinc-600 text-[10px] uppercase tracking-[0.4em] animate-pulse text-center">
                 Hover to Open
             </div>
+function celebrate() {
+    const duration = 5 * 1000;
+    const animationEnd = Date.now() + duration;
 
+    const interval = setInterval(function() {
+        const timeLeft = animationEnd - Date.now();
+        if (timeLeft <= 0) return clearInterval(interval);
+
+        // Standard pink/red confetti
+        confetti({
+            particleCount: 25,
+            spread: 60,
+            origin: { y: 0.7 },
+            colors: ['#ff0000', '#ff69b4']
+        });
+
+        // Flower emojis for the bouquet effect
+        confetti({
+            particleCount: 10,
+            spread: 50,
+            origin: { y: 0.7 },
+            shapes: ['text'],
+            shapeOptions: {
+                text: { value: ['🌸', '🌹', '🌷', '🌻', '🤍'] }
+            },
+            scalar: 2.5 
+        });
+    }, 250);
+}
     `;
 }
 </script>
