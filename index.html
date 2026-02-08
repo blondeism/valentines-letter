@@ -1,110 +1,118 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>404 Not Found</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
-    <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Crimson+Text:wght@400;700&family=Dancing+Script:wght@600&display=swap" rel="stylesheet">
-    <style>
-        body { height: 100vh; background: #0f0f0f; color: #e5e7eb; display: flex; align-items: center; justify-content: center; font-family: monospace; overflow-x: hidden; }
-        .error-box { width: 100%; max-width: 600px; padding: 40px; }
-        .card-mode { background: #1a1a1a; font-family: 'Crimson Text', serif; display: block; overflow-y: auto; padding: 20px; }
-        .hidden { display: none; }
-    </style>
+<meta charset="UTF-8">
+<title>404 Not Found</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://fonts.googleapis.com/css2?family=Crimson+Text:ital,wght@0,400;0,700;1,400&family=Dancing+Script:wght@600&display=swap" rel="stylesheet">
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { height: 100vh; background: #0f0f0f; color: #e5e7eb; display: flex; align-items: center; justify-content: center; font-family: Consolas, Menlo, monospace; }
+
+
+.error { width: 100%; max-width: 760px; padding: 48px; }
+.error h1 { font-size: 64px; margin-bottom: 6px; }
+.error h2 { font-size: 20px; font-weight: normal; margin-bottom: 20px; }
+.error p { font-size: 14px; color: #9ca3af; line-height: 1.7; margin-bottom: 28px; }
+.error ul { font-size: 13px; color: #6b7280; margin-bottom: 36px; padding-left: 18px; }
+.error button { font-family: inherit; background: #1a1a1a; border: 1px solid #333; color: #e5e7eb; padding: 10px 22px; cursor: pointer; }
+
+
+body.card-mode { font-family: 'Crimson Text', serif; background: #111; color: #fff; justify-content: flex-start; padding-top: 50px; }
+.handwritten { font-family: 'Dancing Script', cursive; }
+.perspective { perspective: 1500px; }
+</style>
 </head>
 <body>
 
-<div class="error-box" id="error-screen">
-    <h1 class="text-6xl mb-4 text-white font-bold">404</h1>
-    <h2 class="text-xl mb-6">Resource Not Found</h2>
-    <p class="text-gray-400 mb-8">The system encountered an unexpected error while trying to fetch the love_data.packet.</p>
-    <button onclick="unlockValentine()" class="border border-zinc-700 px-6 py-2 hover:bg-zinc-800 transition">Try Reconnect</button>
-</div>
 
-<div id="valentine-screen" class="hidden w-full max-w-lg mx-auto text-center space-y-6 py-10">
-    
-    <div class="flex justify-center">
-        <lottie-player src="https://assets2.lottiefiles.com/packages/lf20_n9u8pwgy.json" 
-            background="transparent" speed="1" style="width: 200px; height: 200px;" loop autoplay>
-        </lottie-player>
-    </div>
-
-    <div id="timer" class="text-red-500 font-mono tracking-tighter text-lg bg-red-950/20 py-2 rounded-lg border border-red-900/30">
-        Initializing...
-    </div>
-
-    <div class="relative group">
-        <img src="letter.png" alt="My Letter" class="w-full rounded-lg shadow-2xl border border-zinc-800 transition-transform duration-500 group-hover:scale-[1.02]">
-        <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent pointer-events-none rounded-lg"></div>
-    </div>
-
-    <div class="rounded-xl overflow-hidden shadow-lg bg-black">
-        <iframe style="border-radius:12px" 
-            src="<iframe data-testid="embed-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/track/1o82DwNisONAd2mu1RcGE6?utm_source=generator" width="100%" height="352" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>" 
-            width="100%" height="152" frameBorder="0" allowfullscreen="" 
-            allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy">
-        </iframe>
-    </div>
-
-    <button onclick="celebrate()" class="bg-red-700 hover:bg-red-600 text-white font-bold py-3 px-10 rounded-full transition-all transform active:scale-95 shadow-lg shadow-red-900/40">
-        I love you, Sharika! ❤️
-    </button>
-
+<div class="error" id="error">
+  <h1>404</h1>
+  <h2>Not Found</h2>
+  <p>The requested resource could not be found on this server.</p>
+  <ul>
+    <li>The URL may be incorrect</li>
+    <li>The resource may no longer exist</li>
+    <li>Please try again later</li>
+  </ul>
+  <button onclick="showValentine()">Refresh</button>
 </div>
 
 <script>
-    function unlockValentine() {
-        document.getElementById('error-screen').classList.add('hidden');
-        document.body.classList.add('card-mode');
-        const valScreen = document.getElementById('valentine-screen');
-        valScreen.classList.remove('hidden');
-        valScreen.classList.add('animate-fade-in');
-        startTimer();
-    }
+function showValentine() {
 
-    function startTimer() {
-        const target = new Date("February 14, 2026 00:00:00").getTime();
-        setInterval(() => {
-            const now = new Date().getTime();
-            const diff = target - now;
-            const d = Math.floor(diff / (1000 * 60 * 60 * 24));
-            const h = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            const m = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-            const s = Math.floor((diff % (1000 * 60)) / 1000);
-            document.getElementById("timer").innerHTML = `${d}D : ${h}H : ${m}M : ${s}S UNTIL VALENTINES`;
-        }, 1000);
-    }
-function celebrate() {
-    const duration = 5 * 1000;
-    const animationEnd = Date.now() + duration;
+    document.body.classList.add('card-mode');
+    document.body.innerHTML = `
+    <div class="relative w-full max-w-[480px] aspect-[16/11] group perspective mx-auto">
+    
+    <div class="absolute inset-x-0 mx-auto w-[92%] h-[95%] bg-[#fcfaf7] shadow-2xl border border-zinc-200 p-8 
+                transition-all duration-700 ease-in-out z-0
+                group-hover:-translate-y-52 group-hover:z-50">
+        
+        <div class="h-full border border-red-100 p-5 flex flex-col justify-between relative">
+            
+            <div class="flex justify-between items-start">
+                <div class="space-y-2">
+                    <h2 class="handwritten text-3xl text-zinc-800">Dear [Name],</h2>
+                    <p class="text-sm italic text-zinc-600 max-w-[220px] leading-relaxed">
+                        "You and I inhabit different worlds, and this makes our love more special."
+                    </p>
+                </div>
+                <div class="w-14 h-20 border border-dotted border-zinc-300 bg-zinc-50 flex flex-col items-center justify-center p-1">
+                     <div class="text-[8px] uppercase tracking-widest text-zinc-400">Post</div>
+                     <div class="w-full h-full bg-center bg-cover" style="background-image: url('https://i.pinimg.com/736x/22/72/1b/22721b77401267d3f4a5606d8e717d7b.jpg')"></div>
+                </div>
+            </div>
 
-    const interval = setInterval(function() {
-        const timeLeft = animationEnd - Date.now();
-        if (timeLeft <= 0) return clearInterval(interval);
+            <div class="text-center">
+                <p class="text-xl font-bold text-red-900 italic uppercase tracking-[0.15em]">
+                    Be my Valentine?
+                </p>
+            </div>
 
-        // Standard confetti hearts/circles
-        confetti({
-            particleCount: 40,
-            spread: 70,
-            origin: { y: 0.6 },
-            colors: ['#ff0000', '#ff69b4']
-        });
+            <div class="flex justify-between items-end border-t border-red-50/50 pt-4">
+                <div class="text-[9px] text-red-800/60 uppercase tracking-widest italic leading-tight max-w-[140px]">
+                    My heart silently seeks you out.
+                </div>
+                <div class="text-right">
+                    <p class="text-[10px] text-zinc-400 uppercase tracking-widest">Always,</p>
+                    <p class="handwritten text-2xl text-red-900">Your Admirer</p>
+                </div>
+            </div>
 
-        // Flower emojis
-        confetti({
-            particleCount: 10,
-            spread: 60,
-            origin: { y: 0.6 },
-            shapes: ['text'],
-            shapeOptions: {
-                text: { value: ['🌸', '🌹', '🌷', '🌻'] }
-            },
-            scalar: 2 // Makes them big enough to see
-        });
-    }, 250);
+            <!-- Moved Hover to Open inside the card -->
+          
+        </div>
+    </div>
+
+    <div class="absolute inset-0 bg-white border border-zinc-200 shadow-xl z-100 overflow-hidden">
+        <div class="absolute inset-0 z-20" style="background: linear-gradient(35deg, #ffffff 50%, #f9f9f9 50.1%);"></div>
+        
+        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-40 transition-transform duration-500 group-hover:scale-110 group-hover:rotate-12">
+            <div class="w-14 h-14 bg-red-800 rounded-full shadow-lg border border-red-900 flex items-center justify-center">
+                <span class="text-red-300 text-lg">❤</span>
+            </div>
+        </div>
+
+        <div class="absolute bottom-8 w-full text-center z-40">
+            <p class="text-red-900 font-bold uppercase tracking-[0.4em] text-[11px]">YOU AND I</p>
+        </div>
+    </div>
+
+    <div class="absolute top-0 left-0 w-full h-1/2 bg-zinc-100 origin-top transition-transform duration-500 ease-in-out 
+                group-hover:[transform:rotateX(180deg)] z-30 shadow-sm"
+         style="clip-path: polygon(0 0, 50% 100%, 100% 0);">
+    </div>
+
+</div>
+  <div class="absolute bottom-2 left-1/2 -translate-x-1/2 text-zinc-600 text-[10px] uppercase tracking-[0.4em] animate-pulse text-center">
+                Hover to Open
+            </div>
+
+    `;
 }
+</script>
+
 </body>
 </html>
