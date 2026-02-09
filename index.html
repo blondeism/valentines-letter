@@ -99,7 +99,7 @@
         <div class="flap-top"></div>
         
         <div class="letter-content rounded-sm" onclick="event.stopPropagation()">
-            <div class="space-y-2 text-left">
+            <div class="space-y-4 text-left">
                 <div class="flex justify-between items-start">
                     <div class="space-y-0.5">
                         <h2 class="handwritten text-xl text-zinc-900">Dearest Sharika,</h2>
@@ -112,16 +112,17 @@
                     <p>What a beautiful privilege it is to love you in every way; all the love languages, HTML code, and these little big things that only we know about.</p>
                 </div>
 
-                <div class="text-center py-1.5 border-y border-red-50">
-                    <p class="font-bold uppercase tracking-[0.1em] text-red-900 text-[9px] mb-1">Will you be my Valentine?</p>
-                    <button onclick="celebrate(event)" class="bg-red-800 text-white px-6 py-1.5 rounded-full text-[9px] font-bold uppercase tracking-widest shadow-md active:scale-95 transition-all">YES!</button>
-                </div>
-
-                <div class="flex justify-between items-end pt-1">
-                    <p class="text-[8px] uppercase text-zinc-400 tracking-tighter max-w-[80px] leading-tight">Surprise! Told you I got "work" :3</p>
+                <div class="grid grid-cols-3 items-center gap-2">
+                    <div class="text-left">
+                        <p class="text-[8px] uppercase text-zinc-400 tracking-tighter leading-tight">Surprise! Told you I got "work" :3</p>
+                    </div>
+                    <div class="text-center">
+                        <p class="font-bold uppercase tracking-[0.1em] text-red-900 text-[9px] mb-1">Will you be my Valentine?</p>
+                        <button onclick="celebrate(event)" class="bg-red-800 text-white px-4 py-1.5 rounded-full text-[8px] font-bold uppercase tracking-widest shadow-md active:scale-95 transition-all">YES!</button>
+                    </div>
                     <div class="text-right">
-                        <p class="handwritten text-md text-red-700 leading-none">I love you.</p>
-                        <p class="text-[8px] text-zinc-400 uppercase mt-0.5">Solely yours,</p>
+                        <p class="handwritten text-[13px] text-red-700 leading-none mb-1">I love you.</p>
+                        <p class="text-[7px] text-zinc-400 uppercase leading-none">Solely yours,</p>
                         <p class="handwritten text-xl text-red-900 leading-none">— A.</p>
                     </div>
                 </div>
@@ -181,32 +182,8 @@
 
             // NO BLUE - Only Red and Pink
             confetti({ 
-                particleCount: 3, 
+                particleCount: 2, 
                 angle: 60, 
                 spread: 55, 
                 origin: { x: 0 }, 
-                colors: ['#b91c1c', '#f472b6']
-            });
-            confetti({ 
-                particleCount: 3, 
-                angle: 120, 
-                spread: 55, 
-                origin: { x: 1 }, 
-                colors: ['#b91c1c', '#f472b6'] 
-            });
-            
-            if(Math.random() > 0.8) {
-                confetti({ 
-                    particleCount: 1, 
-                    shapes: ['text'], 
-                    shapeOptions: { text: { value: ['❤️','🌹','💖'] } }, 
-                    origin: { y: 0.75 }, 
-                    scalar: 2.5 
-                });
-            }
-            requestAnimationFrame(frame);
-        }());
-    }
-</script>
-</body>
-</html>
+                colors: ['#b91c1c', '#f4
