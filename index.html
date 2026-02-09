@@ -18,8 +18,9 @@
             min-height: 90vh; padding-bottom: 120px;
         }
 
+        /* Widened to Landscape */
         .envelope-wrapper {
-            width: 94vw; max-width: 440px; height: 260px;
+            width: 94vw; max-width: 550px; height: 300px;
             position: relative; background: #fffdfa;
             box-shadow: 0 10px 40px rgba(0,0,0,0.5); cursor: pointer; z-index: 10;
         }
@@ -34,17 +35,17 @@
 
         .letter-content {
             position: absolute; left: 0; bottom: 0; width: 100%; 
-            background: #fffdfa; padding: 20px;
+            background: #fffdfa; padding: 25px;
             transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
             z-index: 10; border: 1px solid #f5f5f5; pointer-events: none;
-            box-sizing: border-box;
+            box-sizing: border-box; opacity: 1 !important; /* Forces Opacity */
         }
         
-        /* Centered layout - NOT see through anymore */
+        /* Centered Landscape Card - Covers everything */
         .open .letter-content { 
             transform: translateY(-50%); 
             z-index: 100; height: auto;
-            box-shadow: 0 15px 50px rgba(0,0,0,0.4);
+            box-shadow: 0 20px 60px rgba(0,0,0,0.6);
             pointer-events: auto;
         }
 
@@ -60,7 +61,7 @@
         }
         .open .wax-seal { opacity: 0; pointer-events: none; }
 
-        .lily-stamp { width: 45px; height: 65px; border: 1px solid #eee; object-fit: cover; }
+        .lily-stamp { width: 55px; height: 75px; border: 1px solid #eee; object-fit: cover; }
     </style>
 </head>
 <body class="min-h-screen flex flex-col items-center justify-center p-4">
@@ -74,7 +75,6 @@
     <div class="space-y-4 text-zinc-400 text-sm font-mono italic border-l-2 border-zinc-800 pl-4">
         <p>The URL was probably wrong but you're everything that went right.</p>
         <p>The resource may no longer exist but this love I got for you is 5ever.</p>
-        <p>Try again neow.</p>
     </div>
     <button onclick="unlock()" class="mt-4 border border-zinc-700 bg-transparent px-8 py-3 hover:bg-zinc-800 transition uppercase text-[10px] tracking-[0.4em] text-zinc-300">Refresh</button>
 </div>
@@ -84,27 +84,35 @@
         <div class="flap-top"></div>
         
         <div class="letter-content rounded-sm" onclick="event.stopPropagation()">
-            <div class="grid grid-cols-2 gap-4 items-start">
+            <div class="grid grid-cols-2 gap-6 items-start">
                 
-                <div class="space-y-3">
-                    <h2 class="handwritten text-2xl text-zinc-900 leading-none">Dearest Sharika,</h2>
-                    <p class="font-bold text-red-800 text-[10px] uppercase tracking-tighter">Happy Valentine's day, my love!</p>
-                    <p class="text-zinc-800 text-[11px] italic leading-tight">What a beautiful privilege it is to love you in every way; all the love languages, HTML code, and these little big things that only we know about.</p>
-                    <div class="pt-2 text-left">
-                        <p class="text-[8px] uppercase text-zinc-400 tracking-tighter leading-none">Surprise! Told you I got "work" :3</p>
+                <div class="space-y-4 flex flex-col h-full">
+                    <div class="space-y-1">
+                        <h2 class="handwritten text-3xl text-zinc-900 leading-none">My Sharika,</h2>
+                        <p class="font-bold text-red-800 text-[11px] uppercase tracking-widest">Happy Valentine's day!</p>
+                    </div>
+                    <p class="text-zinc-800 text-[13px] italic leading-relaxed">What a beautiful privilege it is to love you in every way; all the love languages, HTML code, and these little big things that only we know about.</p>
+                    
+                    <div class="mt-auto pt-4">
+                        <p class="text-[9px] uppercase text-zinc-400 tracking-tighter leading-none">Surprise! This is the "work" :3</p>
                     </div>
                 </div>
 
-                <div class="flex flex-col items-end space-y-4">
+                <div class="flex flex-col items-end h-full space-y-6">
                     <img src="lily.jpg" class="lily-stamp" alt="lily">
-                    <div class="text-center w-full space-y-2">
-                        <p class="font-bold uppercase tracking-[0.05em] text-red-900 text-[10px]">Will you be my Valentine?</p>
-                        <button onclick="celebrate(event)" class="bg-red-800 text-white px-6 py-2 rounded-full text-[9px] font-bold uppercase tracking-widest shadow-md active:scale-95 transition-all">YES!</button>
+                    
+                    <div class="text-center w-full space-y-3 pt-2">
+                        <p class="font-bold uppercase tracking-[0.1em] text-red-900 text-[11px]">Will you be my Valentine?</p>
+                        <div class="flex gap-2 justify-center">
+                             <button onclick="celebrate(event)" class="bg-red-800 text-white px-8 py-2 rounded-md text-[10px] font-bold uppercase tracking-widest shadow-md active:scale-95 transition-all">YES</button>
+                             <button class="bg-zinc-400 text-white px-6 py-2 rounded-md text-[10px] font-bold uppercase tracking-widest cursor-not-allowed opacity-50">NO</button>
+                        </div>
                     </div>
-                    <div class="text-right w-full pt-1">
-                        <p class="handwritten text-sm text-red-700 leading-none">I love you.</p>
-                        <p class="text-[8px] text-zinc-400 uppercase mt-0.5 leading-none">Solely yours,</p>
-                        <p class="handwritten text-xl text-red-900 leading-none">— Angela.</p>
+
+                    <div class="text-right w-full mt-auto">
+                        <p class="handwritten text-lg text-red-700 leading-none">I love you.</p>
+                        <p class="text-[9px] text-zinc-400 uppercase mt-1 leading-none">Solely yours,</p>
+                        <p class="handwritten text-2xl text-red-900 leading-none">— Angela.</p>
                     </div>
                 </div>
 
@@ -113,19 +121,19 @@
 
         <div class="pocket"></div>
         <div class="wax-seal">
-            <div class="w-12 h-12 bg-red-800 rounded-full flex items-center justify-center text-white text-lg border-2 border-red-900 shadow-xl transition-transform hover:scale-110">ʚ♡ɞ</div>
+            <div class="w-12 h-12 bg-red-800 rounded-full flex items-center justify-center text-white text-lg border-2 border-red-900 shadow-xl">ʚ♡ɞ</div>
         </div>
     </div>
     
-    <p class="text-[11px] mt-8 uppercase tracking-[0.6em] text-zinc-500 text-center animate-pulse" id="hint-text">Click to Open</p>
+    <p class="text-[11px] mt-10 uppercase tracking-[0.6em] text-zinc-500 text-center animate-pulse" id="hint-text">Click to Open</p>
 
-    <div id="spotify-player" class="hidden mt-6 w-full max-w-[340px] px-4">
-        <iframe style="border-radius:12px" src="https://open.spotify.com/embed/track/1o82DwNisONAd2mu1RcGE6?utm_source=generator" width="100%" height="80" frameBorder="0" allow="autoplay; encrypted-media;"></iframe>
+    <div id="spotify-player" class="hidden mt-6 w-full max-w-[400px] px-4">
+        <iframe style="border-radius:12px" src="https://open.spotify.com/embed/track/your-track-id" width="100%" height="80" frameBorder="0" allow="autoplay; encrypted-media;"></iframe>
     </div>
 </div>
 
-<div id="timer-bar" class="fixed bottom-0 left-0 w-full bg-black/95 backdrop-blur-md py-5 border-t border-zinc-900 hidden z-[100]">
-    <div id="timer" class="text-[11px] text-red-600 font-bold tracking-[0.3em] font-mono uppercase text-center w-full"></div>
+<div id="timer-bar" class="fixed bottom-0 left-0 w-full bg-black/95 backdrop-blur-md py-6 border-t border-zinc-900 hidden z-[100]">
+    <div id="timer" class="text-[12px] text-red-600 font-bold tracking-[0.4em] font-mono uppercase text-center w-full"></div>
 </div>
 
 <script>
@@ -155,13 +163,21 @@
         document.getElementById('hint-text').innerText = "HI BABYYYYY!";
         
         const end = Date.now() + (15 * 1000);
-        const colors = ['#b91c1c', '#f472b6', '#7f1d1d'];
+        const redPinkPalette = ['#b91c1c', '#f472b6', '#7f1d1d', '#991b1b'];
 
         (function frame() {
-            confetti({ particleCount: 2, angle: 60, spread: 55, origin: { x: 0 }, colors: colors });
-            confetti({ particleCount: 2, angle: 120, spread: 55, origin: { x: 1 }, colors: colors });
+            // Strictly Red/Pink palette
+            confetti({ particleCount: 3, angle: 60, spread: 55, origin: { x: 0 }, colors: redPinkPalette });
+            confetti({ particleCount: 3, angle: 120, spread: 55, origin: { x: 1 }, colors: redPinkPalette });
+            
             if(Math.random() > 0.8) {
-                confetti({ particleCount: 1, shapes: ['text'], shapeOptions: { text: { value: ['❤️','🌹'] } }, origin: { y: 0.8 }, scalar: 2 });
+                confetti({ 
+                    particleCount: 1, 
+                    shapes: ['text'], 
+                    shapeOptions: { text: { value: ['❤️','🌹','💖'] } }, 
+                    origin: { y: 0.8 }, 
+                    scalar: 2 
+                });
             }
             if (Date.now() < end) { requestAnimationFrame(frame); }
         }());
