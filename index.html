@@ -10,57 +10,70 @@
     <style>
         body { background: #0a0a0a; color: #e5e7eb; font-family: monospace; overflow-x: hidden; }
         .handwritten { font-family: 'Dancing Script', cursive; }
-        .perspective { perspective: 1000px; }
         .hidden { display: none; }
-        .card-mode { font-family: 'Crimson Text', serif; }
+        .card-mode { font-family: 'Crimson Text', serif; background: #0f0f0f; }
+        
+        /* The Envelope Flap */
+        .envelope-wrapper { position: relative; width: 100%; max-width: 450px; margin: 0 auto; }
+        .flap {
+            position: absolute; top: 0; left: 0; width: 100%; height: 50%;
+            background: #f3f4f6; clip-path: polygon(0 0, 50% 100%, 100% 0);
+            transition: transform 0.6s ease; z-index: 30; origin-top;
+        }
+        .envelope-wrapper:hover .flap { transform: rotateX(180deg); }
     </style>
 </head>
 <body class="min-h-screen flex items-center justify-center p-4">
 
-<div id="error-screen" class="w-full max-w-md space-y-4">
-    <h1 class="text-6xl font-bold">404</h1>
-    <h2 class="text-xl text-zinc-400">Resource Not Found</h2>
-    <p class="text-sm text-zinc-500">The system encountered an unexpected error while fetching love_data.packet.</p>
-    <button onclick="unlock()" class="border border-zinc-700 px-6 py-2 hover:bg-zinc-800 transition uppercase text-xs tracking-widest">Try Reconnect</button>
+<div id="error-screen" class="w-full max-w-md space-y-6 text-left">
+    <h1 class="text-7xl font-bold text-white">ERROR 371</h1>
+    <h2 class="text-2xl text-zinc-300">Sorry, my pretty girl!</h2>
+    <div class="space-y-4 text-zinc-400 text-sm leading-relaxed">
+        <p>The requested resource could not be found on this server. Please try again.</p>
+        <ul class="list-disc pl-5 space-y-2 text-zinc-500">
+            <li>The URL might've been wrong but you're everything that is right. #YesMaam!</li>
+            <li>The resource may no longer exist but this love I have for you? Eternal.</li>
+            <li>Please try again later, mi amor. I lied. Try again now.</li>
+        </ul>
+    </div>
+    <button onclick="unlock()" class="mt-8 bg-zinc-800 border border-zinc-700 px-8 py-3 hover:bg-zinc-700 transition uppercase text-xs tracking-[0.3em]">Refresh</button>
 </div>
 
-<div id="valentine-screen" class="hidden w-full max-w-lg animate-in fade-in duration-1000">
+<div id="valentine-screen" class="hidden w-full max-w-lg animate-in fade-in zoom-in duration-700">
     <div class="text-center space-y-6">
         
-        <div id="timer" class="text-red-500 font-mono text-xs tracking-tighter bg-red-950/20 py-2 rounded border border-red-900/30">
-            LOADING...
+        <div id="timer" class="text-red-500 font-mono text-[10px] tracking-widest bg-red-950/20 py-2 rounded border border-red-900/30 uppercase">
+            Initialising...
         </div>
 
-        <div class="bg-[#fcfaf7] text-zinc-800 p-6 sm:p-10 shadow-2xl rounded-sm border border-zinc-200 text-left relative overflow-hidden">
-            <div class="border border-red-100 p-4 sm:p-8 space-y-6">
-                <div class="flex justify-between items-start">
-                    <h2 class="handwritten text-3xl sm:text-4xl text-zinc-900">My Dearest, Sharika</h2>
-                    <div class="w-12 h-16 border border-zinc-300 bg-zinc-50 p-1 rotate-3 shadow-sm">
-                        <img src="lily.jpg" class="w-full h-full object-cover">
+        <div class="envelope-wrapper group bg-white shadow-2xl rounded-sm aspect-[4/3] flex items-center justify-center relative">
+            <div class="flap shadow-md"></div>
+            
+            <div class="absolute inset-x-2 bottom-2 bg-[#fcfaf7] p-4 sm:p-8 border border-zinc-200 shadow-inner z-20 transition-all duration-700 group-hover:-translate-y-1/2 group-hover:z-40">
+                <div class="border border-red-100 p-3 sm:p-6 space-y-4 text-left">
+                    <div class="flex justify-between items-start">
+                        <h2 class="handwritten text-2xl sm:text-3xl text-zinc-900">My Dearest, Sharika</h2>
+                        <img src="lily.jpg" class="w-10 h-14 object-cover rotate-3 border border-white shadow-sm">
+                    </div>
+
+                    <p class="text-[13px] sm:text-base leading-relaxed text-zinc-700 italic">
+                        As I write this, I think of the way your lips curl into this damning smile... and how I can't seem to wipe every bit of me clean, not with the way you've colored me all over. What a beautiful privilege it is to love you and be loved by you in every love language; html code, words of affirmation to gift giving, and these little big things that only we know about. Happy Valentine's day, my love! And if it's not too much...
+                    </p>
+
+                    <div class="pt-2">
+                        <iframe style="border-radius:12px" src="https://open.spotify.com/embed/track/3yfq7jC1v9Yhwqr9ZasM9s?utm_source=generator" width="100%" height="80" frameBorder="0" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+                    </div>
+
+                    <div class="text-center pt-4">
+                        <p class="font-bold uppercase tracking-widest text-red-900 text-[10px] mb-3">Will you be my Valentine?</p>
+                        <button onclick="celebrate()" class="bg-red-800 hover:bg-red-700 text-white px-6 py-2 rounded-full text-xs shadow-lg transition-transform active:scale-95">YES!</button>
                     </div>
                 </div>
-
-                <p class="text-sm sm:text-base leading-relaxed text-zinc-700 italic">
-                    As I write this, I think of the way your lips curl into this damning smile... 
-                    and how I can't seem to wipe every bit of me clean, not with the way you've colored me all over. What a beautiful privilege it is to love you and be loved by you in every love language; html code, words of affirmation to gift giving, and these little big things that only we know about. Happy Valentine's day, my love! And if it's not too much...
-                </p>
-
-                <div class="pt-4">
-                    <div class="bg-zinc-200 h-20 flex items-center justify-center rounded-lg text-xs text-zinc-400">src="https://open.spotify.com/embed/track/1o82DwNisONAd2mu1RcGE6"</div>
-                </div>
-
-                <div class="text-center pt-6 border-t border-red-50">
-                    <p class="font-bold uppercase tracking-widest text-red-900 text-xs mb-4">Will you be my Valentine?</p>
-                    <button onclick="celebrate()" class="bg-red-800 hover:bg-red-700 text-white px-8 py-2 rounded-full shadow-lg transition-transform active:scale-95">YES!</button>
-                </div>
-
-                <div class="flex justify-between items-end pt-4">
-                    <p class="text-[10px] uppercase text-zinc-400 tracking-tighter">Surprise! Told you I got "work" :3</p>
-                    <div class="text-right">
-                        <p class="text-[10px] text-zinc-400 uppercase">Always,</p>
-                        <p class="handwritten text-2xl text-red-900">Yours, A.</p>
-                    </div>
-                </div>
+            </div>
+            
+            <div class="absolute inset-0 bg-zinc-50 z-10 border-t border-zinc-200"></div>
+            <div class="absolute bottom-4 w-full text-center z-50 pointer-events-none">
+                <p class="text-red-900 font-bold tracking-[0.4em] text-[10px] uppercase">Hover to Open</p>
             </div>
         </div>
     </div>
@@ -90,12 +103,10 @@
     function celebrate() {
         const end = Date.now() + 5000;
         const colors = ['#ff0000', '#ff69b4', '#ffffff'];
-
         (function frame() {
             confetti({ particleCount: 5, angle: 60, spread: 55, origin: { x: 0 }, colors: colors });
             confetti({ particleCount: 5, angle: 120, spread: 55, origin: { x: 1 }, colors: colors });
             confetti({ particleCount: 2, shapes: ['text'], shapeOptions: { text: { value: ['🌸','🌹','🌷'] } }, origin: { y: 0.8 }, scalar: 2 });
-
             if (Date.now() < end) requestAnimationFrame(frame);
         }());
     }
