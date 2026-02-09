@@ -18,7 +18,6 @@
             min-height: 90vh; padding-bottom: 120px;
         }
 
-        /* Widened to Landscape */
         .envelope-wrapper {
             width: 94vw; max-width: 550px; height: 300px;
             position: relative; background: #fffdfa;
@@ -35,17 +34,18 @@
 
         .letter-content {
             position: absolute; left: 0; bottom: 0; width: 100%; 
-            background: #fffdfa; padding: 25px;
+            background: #fffdfa; padding: 30px;
             transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
             z-index: 10; border: 1px solid #f5f5f5; pointer-events: none;
-            box-sizing: border-box; opacity: 1 !important; /* Forces Opacity */
+            box-sizing: border-box; opacity: 1;
         }
         
-        /* Centered Landscape Card - Covers everything */
+        /* FIX: Letter now has highest Z-index and covers the envelope completely */
         .open .letter-content { 
-            transform: translateY(-50%); 
-            z-index: 100; height: auto;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.6);
+            transform: translateY(-40%); 
+            z-index: 100; 
+            height: auto;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.8);
             pointer-events: auto;
         }
 
@@ -84,34 +84,30 @@
         <div class="flap-top"></div>
         
         <div class="letter-content rounded-sm" onclick="event.stopPropagation()">
-            <div class="grid grid-cols-2 gap-6 items-start">
+            <div class="grid grid-cols-2 gap-8 items-start">
                 
-                <div class="space-y-4 flex flex-col h-full">
-                    <div class="space-y-1">
+                <div class="space-y-4 flex flex-col justify-between h-full">
+                    <div>
                         <h2 class="handwritten text-3xl text-zinc-900 leading-none">My Sharika,</h2>
-                        <p class="font-bold text-red-800 text-[11px] uppercase tracking-widest">Happy Valentine's day!</p>
+                        <p class="font-bold text-red-800 text-[11px] uppercase tracking-widest mt-1">Happy Valentine's day!</p>
+                        <p class="text-zinc-800 text-[12px] italic mt-4 leading-relaxed">What a beautiful privilege it is to love you in every way; all the love languages, HTML code, and these little big things that only we know about.</p>
                     </div>
-                    <p class="text-zinc-800 text-[13px] italic leading-relaxed">What a beautiful privilege it is to love you in every way; all the love languages, HTML code, and these little big things that only we know about.</p>
-                    
-                    <div class="mt-auto pt-4">
-                        <p class="text-[9px] uppercase text-zinc-400 tracking-tighter leading-none">Surprise! This is the "work" :3</p>
+                    <div class="pt-6">
+                        <p class="text-[9px] uppercase text-zinc-400 tracking-tighter">Surprise! This is the "work" :3</p>
                     </div>
                 </div>
 
-                <div class="flex flex-col items-end h-full space-y-6">
+                <div class="flex flex-col items-end justify-between h-full">
                     <img src="lily.jpg" class="lily-stamp" alt="lily">
                     
-                    <div class="text-center w-full space-y-3 pt-2">
-                        <p class="font-bold uppercase tracking-[0.1em] text-red-900 text-[11px]">Will you be my Valentine?</p>
-                        <div class="flex gap-2 justify-center">
-                             <button onclick="celebrate(event)" class="bg-red-800 text-white px-8 py-2 rounded-md text-[10px] font-bold uppercase tracking-widest shadow-md active:scale-95 transition-all">YES</button>
-                             <button class="bg-zinc-400 text-white px-6 py-2 rounded-md text-[10px] font-bold uppercase tracking-widest cursor-not-allowed opacity-50">NO</button>
-                        </div>
+                    <div class="text-center w-full py-4">
+                        <p class="font-bold uppercase tracking-[0.1em] text-red-900 text-[10px] mb-3">Will you be my Valentine?</p>
+                        <button onclick="celebrate(event)" class="bg-red-800 text-white px-10 py-2 rounded-md text-[10px] font-bold uppercase tracking-widest shadow-md active:scale-95 transition-all">YES</button>
                     </div>
 
-                    <div class="text-right w-full mt-auto">
+                    <div class="text-right w-full">
                         <p class="handwritten text-lg text-red-700 leading-none">I love you.</p>
-                        <p class="text-[9px] text-zinc-400 uppercase mt-1 leading-none">Solely yours,</p>
+                        <p class="text-[9px] text-zinc-400 uppercase mt-1">Solely yours,</p>
                         <p class="handwritten text-2xl text-red-900 leading-none">— Angela.</p>
                     </div>
                 </div>
@@ -128,7 +124,7 @@
     <p class="text-[11px] mt-10 uppercase tracking-[0.6em] text-zinc-500 text-center animate-pulse" id="hint-text">Click to Open</p>
 
     <div id="spotify-player" class="hidden mt-6 w-full max-w-[400px] px-4">
-        <iframe style="border-radius:12px" src="https://open.spotify.com/embed/track/your-track-id" width="100%" height="80" frameBorder="0" allow="autoplay; encrypted-media;"></iframe>
+        <iframe style="border-radius:12px" src="http://googleusercontent.com/spotify.com/1o82DwNisONAd2mu1RcGE6" width="100%" height="80" frameBorder="0" allow="autoplay; encrypted-media;"></iframe>
     </div>
 </div>
 
@@ -163,18 +159,17 @@
         document.getElementById('hint-text').innerText = "HI BABYYYYY!";
         
         const end = Date.now() + (15 * 1000);
-        const redPinkPalette = ['#b91c1c', '#f472b6', '#7f1d1d', '#991b1b'];
+        const palette = ['#b91c1c', '#f472b6', '#991b1b', '#dc2626'];
 
         (function frame() {
-            // Strictly Red/Pink palette
-            confetti({ particleCount: 3, angle: 60, spread: 55, origin: { x: 0 }, colors: redPinkPalette });
-            confetti({ particleCount: 3, angle: 120, spread: 55, origin: { x: 1 }, colors: redPinkPalette });
+            confetti({ particleCount: 3, angle: 60, spread: 55, origin: { x: 0 }, colors: palette });
+            confetti({ particleCount: 3, angle: 120, spread: 55, origin: { x: 1 }, colors: palette });
             
             if(Math.random() > 0.8) {
                 confetti({ 
                     particleCount: 1, 
                     shapes: ['text'], 
-                    shapeOptions: { text: { value: ['❤️','🌹','💖'] } }, 
+                    shapeOptions: { text: { value: ['❤️','🌹','💘'] } }, 
                     origin: { y: 0.8 }, 
                     scalar: 2 
                 });
