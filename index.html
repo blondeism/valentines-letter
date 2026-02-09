@@ -8,19 +8,19 @@
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Crimson+Text:ital,wght@0,400;0,700;1,400&family=Dancing+Script:wght@600&family=Inter:wght@400;700&family=Space+Mono&display=swap" rel="stylesheet">
     <style>
-        body { background: #0a0a0a; color: #e5e7eb; font-family: 'Space Mono', monospace; overflow-x: hidden; margin: 0; }
+        body { background: #0a0a0a; color: #e5e7eb; font-family: 'Space Mono', monospace; overflow-x: hidden; margin: 0; transition: background 0.5s ease; }
         .error-title { font-family: 'Inter', sans-serif; font-weight: 700; }
         .handwritten { font-family: 'Dancing Script', cursive; }
         .hidden { display: none; }
-        .card-mode { font-family: 'Crimson Text', serif; background: #0f0f0f; }
+        /* Changed background to white as requested */
+        .card-mode { background: #ffffff !important; color: #1a1a1a !important; }
         
-        /* Reinforced Envelope - Prevents Tweaking */
         .envelope-wrapper {
             width: 95vw;
-            max-width: 500px;
-            height: 380px;
+            max-width: 450px;
+            height: 300px;
             position: relative;
-            background: #d1d1d1;
+            background: #e0e0e0;
             margin: auto;
             display: flex;
             align-items: flex-end;
@@ -29,35 +29,41 @@
         
         .flap-top {
             position: absolute; top: 0; left: 0; width: 100%; height: 60%;
-            background: #fdfdfd; clip-path: polygon(0 0, 50% 100%, 100% 0);
+            background: #f5f5f5; clip-path: polygon(0 0, 50% 100%, 100% 0);
             z-index: 50; transition: transform 0.6s ease; transform-origin: top;
-            border-bottom: 1px solid #eee;
+            border-bottom: 1px solid #ddd;
         }
         .open .flap-top { transform: rotateX(180deg); z-index: 5; }
 
         .letter-content {
-            position: absolute; left: 5%; bottom: 5%; width: 90%; height: 90%;
-            background: #fcfaf7; padding: 25px;
+            position: absolute; left: 5%; bottom: 5%; width: 90%; 
+            background: #fffdfa; padding: 20px;
             transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
-            z-index: 20; box-shadow: inset 0 0 30px rgba(0,0,0,0.05);
-            overflow-y: auto;
+            z-index: 10; box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            border: 1px solid #f0efeb;
         }
-        .open .letter-content { transform: translateY(-50%); z-index: 45; height: auto; min-height: 100%; }
+        /* Letter now slides UP and stays in FRONT */
+        .open .letter-content { 
+            transform: translateY(-60%); 
+            z-index: 100; 
+            height: auto;
+        }
 
         .pocket {
-            position: absolute; bottom: 0; left: 0; width: 100%; height: 60%;
+            position: absolute; bottom: 0; left: 0; width: 100%; height: 65%;
             background: #ffffff; clip-path: polygon(0 0, 50% 45%, 100% 0, 100% 100%, 0 100%);
             z-index: 40; border-top: 1px solid #eee;
         }
 
+        /* Black Wax Seal as requested */
         .wax-seal {
-            position: absolute; bottom: 18%; left: 50%; transform: translateX(-50%);
+            position: absolute; bottom: 20%; left: 50%; transform: translateX(-50%);
             z-index: 60; transition: opacity 0.3s;
         }
         .open .wax-seal { opacity: 0; pointer-events: none; }
 
         .lily-stamp {
-            width: 50px; height: 70px; border: 2px solid white; box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            width: 45px; height: 60px; border: 2px solid white; box-shadow: 0 2px 4px rgba(0,0,0,0.1);
             transform: rotate(3deg); object-fit: cover;
         }
     </style>
@@ -71,9 +77,9 @@
     </div>
     <h2 class="text-2xl sm:text-3xl text-zinc-100 font-sans tracking-tight">Sorry, my pretty girl!</h2>
     <div class="space-y-6 text-zinc-400 text-sm sm:text-base leading-relaxed font-mono">
-        <p>The requested resource could not be found on this server. Please try again.</p>
+        <p>The requested resource could not be found on this server.</p>
         <ul class="list-none space-y-4 italic text-zinc-500 border-l-2 border-zinc-800 pl-6">
-            <li>The URL was probably wrong but you're everything that went right. #YesMaam!</li>
+            <li>The URL was probably wrong but you're everything that went right.</li>
             <li>The resource may no longer exist but this love I got for you is 5ever.</li>
             <li>Please try again later, mon amour. I lied. Try again neow.</li>
         </ul>
@@ -84,53 +90,55 @@
 <div id="valentine-screen" class="hidden w-full flex flex-col items-center animate-in fade-in duration-1000 pb-32">
     
     <div class="envelope-wrapper group cursor-pointer" id="envelope" onclick="this.classList.toggle('open')">
-        <div class="flap-top shadow-sm"></div>
+        <div class="flap-top"></div>
         
-        <div class="letter-content shadow-2xl border border-zinc-100 rounded-sm">
-            <div class="border border-red-50 p-4 sm:p-6 space-y-6">
-                <div class="flex justify-between items-start">
-                    <h2 class="handwritten text-3xl text-zinc-900 leading-none">Dearest Sharika,</h2>
-                    <img src="lily.jpg" class="lily-stamp">
+        <div class="letter-content rounded-sm" onclick="event.stopPropagation()">
+            <div class="space-y-4 text-left">
+                <div class="flex justify-between items-start pt-4">
+                    <div class="space-y-1">
+                        <h2 class="handwritten text-2xl text-zinc-900 leading-none">Dearest Sharika,</h2>
+                        <p class="font-bold text-red-800 text-xs uppercase tracking-widest">Happy Valentine's day, my love!</p>
+                    </div>
+                    <img src="lily.jpg" class="lily-stamp" alt="lily">
                 </div>
                 
-                <div class="space-y-4 text-zinc-800 text-sm sm:text-base italic leading-relaxed">
+                <div class="text-zinc-800 text-[13px] sm:text-sm italic leading-snug space-y-3">
                     <p>I'm thinking of the way your lips curl into this damning smile I can never forget. I can't seem to wipe every bit of me clean, not with the way you've colored me all over.</p>
-                    <p>What a beautiful privilege it is to love you in every way; all the love languages from words of affirmation to gift giving, HTML code, and these little big things that only we know about.</p>
-                    <p class="font-bold text-zinc-900">Happy Valentine's day, my love!</p>
+                    <p>What a beautiful privilege it is to love you; HTML code, and these little big things that only we know about.</p>
                 </div>
 
-                <div class="text-center pt-4 border-t border-red-100">
-                    <p class="font-bold uppercase tracking-[0.2em] text-red-900 text-[11px] mb-4">Will you be my Valentine?</p>
-                    <button onclick="celebrate(event)" class="bg-red-800 text-white px-10 py-3 rounded-full text-xs font-bold uppercase tracking-widest shadow-xl active:scale-95 transition-all">YES!</button>
+                <div class="text-center py-2 border-y border-red-50">
+                    <p class="font-bold uppercase tracking-[0.1em] text-red-900 text-[10px] mb-2">Will you be my Valentine?</p>
+                    <button onclick="celebrate(event)" class="bg-red-800 text-white px-8 py-2 rounded-full text-[10px] font-bold uppercase tracking-widest shadow-lg active:scale-95 transition-all">YES!</button>
                 </div>
 
-                <div class="flex justify-between items-end pt-6">
-                    <p class="text-[10px] uppercase text-zinc-400 tracking-widest max-w-[120px]">Surprise! Told you I got "work" :3</p>
+                <div class="flex justify-between items-end pt-2">
+                    <p class="text-[9px] uppercase text-zinc-400 tracking-tighter max-w-[100px]">Surprise! Told you I got "work" :3</p>
                     <div class="text-right">
-                        <p class="text-[10px] text-zinc-400 uppercase">Solely yours,</p>
-                        <p class="handwritten text-3xl text-red-900 leading-none">— A.</p>
+                        <p class="handwritten text-lg text-red-700 leading-none">I love you.</p>
+                        <p class="text-[9px] text-zinc-400 uppercase mt-1">Solely yours,</p>
+                        <p class="handwritten text-2xl text-red-900 leading-none">— A.</p>
                     </div>
                 </div>
             </div>
         </div>
 
-        <div class="pocket shadow-xl"></div>
+        <div class="pocket"></div>
         
         <div class="wax-seal">
-            <div class="w-12 h-12 bg-red-800 rounded-full flex items-center justify-center text-white text-lg border-2 border-red-900 shadow-xl transition-transform hover:scale-110">˚ʚ♡ɞ˚</div>
+            <div class="w-12 h-12 bg-black rounded-full flex items-center justify-center text-white text-lg border-2 border-zinc-800 shadow-2xl transition-transform hover:scale-110">˚ʚ♡ɞ˚</div>
         </div>
     </div>
     
-    <p class="text-[11px] mt-28 uppercase tracking-[0.6em] text-zinc-500 text-center animate-pulse" id="hint-text">Click to Open</p>
+    <p class="text-[11px] mt-20 uppercase tracking-[0.6em] text-zinc-400 text-center animate-pulse" id="hint-text">Click to Open</p>
 
-    <div id="spotify-player" class="hidden mt-10 w-full max-w-[400px] animate-in slide-in-from-bottom duration-1000 px-4">
+    <div id="spotify-player" class="hidden mt-6 w-full max-w-[350px] animate-in slide-in-from-bottom duration-1000 px-4">
         <iframe style="border-radius:12px" src="https://open.spotify.com/embed/track/1o82DwNisONAd2mu1RcGE6" width="100%" height="80" frameBorder="0" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
     </div>
-
 </div>
 
-<div id="timer-bar" class="fixed bottom-0 left-0 w-full bg-black/95 backdrop-blur-xl py-5 border-t border-zinc-900 hidden z-[100]">
-    <div id="timer" class="text-[11px] text-red-500 font-bold tracking-[0.4em] font-mono uppercase text-center w-full opacity-80"></div>
+<div id="timer-bar" class="fixed bottom-0 left-0 w-full bg-white/90 backdrop-blur-md py-4 border-t border-zinc-100 hidden z-[100]">
+    <div id="timer" class="text-[10px] text-red-600 font-bold tracking-[0.3em] font-mono uppercase text-center w-full"></div>
 </div>
 
 <script>
@@ -160,16 +168,40 @@
         document.getElementById('spotify-player').classList.remove('hidden');
         document.getElementById('hint-text').innerText = "HI BABYYYYY!";
         
-        const duration = 5 * 1000;
+        const duration = 10 * 1000;
         const animationEnd = Date.now() + duration;
 
         (function frame() {
             const timeLeft = animationEnd - Date.now();
             if (timeLeft <= 0) return;
 
-            confetti({ particleCount: 4, angle: 60, spread: 55, origin: { x: 0 }, colors: ['#ff0000', '#ff69b4'] });
-            confetti({ particleCount: 4, angle: 120, spread: 55, origin: { x: 1 }, colors: ['#ff0000', '#ff69b4'] });
-            confetti({ particleCount: 1, shapes: ['text'], shapeOptions: { text: { value: ['🌸','🌹','🌷','💖'] } }, origin: { y: 0.8 }, scalar: 2.5 });
+            // Specifically Red and Pink Hearts
+            confetti({ 
+                particleCount: 3, 
+                angle: 60, 
+                spread: 55, 
+                origin: { x: 0 }, 
+                colors: ['#ff0000', '#ff69b4'],
+                shapes: ['circle'] // Using circles/hearts feel
+            });
+            confetti({ 
+                particleCount: 3, 
+                angle: 120, 
+                spread: 55, 
+                origin: { x: 1 }, 
+                colors: ['#ff0000', '#ff69b4'] 
+            });
+            
+            // Emoji Hearts
+            if(Math.random() > 0.9) {
+                confetti({ 
+                    particleCount: 1, 
+                    shapes: ['text'], 
+                    shapeOptions: { text: { value: ['❤️','💖','💘'] } }, 
+                    origin: { y: 0.8 }, 
+                    scalar: 2 
+                });
+            }
 
             requestAnimationFrame(frame);
         }());
