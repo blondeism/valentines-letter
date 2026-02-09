@@ -12,15 +12,17 @@
         .error-title { font-family: 'Inter', sans-serif; font-weight: 700; line-height: 0.8; letter-spacing: -0.05em; }
         .handwritten { font-family: 'Dancing Script', cursive; }
         .hidden { display: none; }
-        .card-mode { background: #ffffff !important; color: #1a1a1a !important; }
+        
+        /* Reverted to Black Background */
+        .card-mode { background: #0a0a0a !important; color: #e5e7eb !important; }
         
         .valentine-container {
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: flex-end;
-            min-height: 90vh;
-            padding-bottom: 80px; /* Space for the bottom timer bar */
+            min-height: 85vh;
+            padding-bottom: 100px;
         }
 
         .envelope-wrapper {
@@ -28,8 +30,8 @@
             max-width: 400px;
             height: 240px;
             position: relative;
-            background: #fffdfa; /* Matches letter */
-            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            background: #fffdfa;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.5);
             cursor: pointer;
             z-index: 10;
         }
@@ -44,18 +46,18 @@
 
         .letter-content {
             position: absolute; left: 2%; bottom: 5%; width: 96%; 
-            background: #fffdfa; padding: 18px;
+            background: #fffdfa; padding: 20px;
             transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
             z-index: 10; border: 1px solid #f5f5f5;
             pointer-events: none;
         }
         
-        /* Slides UP and OVER everything */
+        /* Adjusted: Letter stays centered and readable */
         .open .letter-content { 
-            transform: translateY(-115%); 
+            transform: translateY(-55%); 
             z-index: 100; 
             height: auto;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+            box-shadow: 0 15px 45px rgba(0,0,0,0.3);
             pointer-events: auto;
         }
 
@@ -138,14 +140,14 @@
         </div>
     </div>
     
-    <p class="text-[11px] mt-6 uppercase tracking-[0.6em] text-zinc-400 text-center animate-pulse" id="hint-text">Click to Open</p>
+    <p class="text-[11px] mt-6 uppercase tracking-[0.6em] text-zinc-500 text-center animate-pulse" id="hint-text">Click to Open</p>
 
     <div id="spotify-player" class="hidden mt-6 w-full max-w-[340px] animate-in slide-in-from-bottom duration-1000 px-4">
-        <iframe style="border-radius:12px" src="https://open.spotify.com/embed/track/1p80pS7S646qyK7m9zR4Ty?utm_source=generator" width="100%" height="80" frameBorder="0" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+        <iframe style="border-radius:12px" src="https://open.spotify.com/embed/track/1o82DwNisONAd2mu1RcGE6?utm_source=generator" width="100%" height="80" frameBorder="0" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
     </div>
 </div>
 
-<div id="timer-bar" class="fixed bottom-0 left-0 w-full bg-white/95 backdrop-blur-md py-5 border-t border-zinc-100 hidden z-[100]">
+<div id="timer-bar" class="fixed bottom-0 left-0 w-full bg-black/90 backdrop-blur-md py-5 border-t border-zinc-900 hidden z-[100]">
     <div id="timer" class="text-[11px] text-red-600 font-bold tracking-[0.3em] font-mono uppercase text-center w-full"></div>
 </div>
 
@@ -183,6 +185,7 @@
             const timeLeft = animationEnd - Date.now();
             if (timeLeft <= 0) return;
 
+            // NO BLUE - Only Red and Pink
             confetti({ 
                 particleCount: 3, 
                 angle: 60, 
@@ -202,7 +205,7 @@
                 confetti({ 
                     particleCount: 1, 
                     shapes: ['text'], 
-                    shapeOptions: { text: { value: ['❤️','🌹'] } }, 
+                    shapeOptions: { text: { value: ['❤️','🌹','💖'] } }, 
                     origin: { y: 0.75 }, 
                     scalar: 2.5 
                 });
