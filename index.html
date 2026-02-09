@@ -41,11 +41,11 @@
             z-index: 40; border-top: 1px solid #f0efeb;
         }
 
-        /* Independent Letter Layer */
+        /* Letter Layer */
         .letter-card {
             position: absolute;
-            width: 95vw; max-width: 600px;
-            background: #fffdfa; padding: 35px;
+            width: 95vw; max-width: 620px;
+            background: #fffdfa; padding: 30px;
             z-index: 200; border-radius: 2px;
             box-shadow: 0 30px 60px rgba(0,0,0,0.9);
             opacity: 0; pointer-events: none;
@@ -55,20 +55,12 @@
         
         .letter-card.visible { opacity: 1; pointer-events: auto; transform: scale(1) translateY(0); }
 
-        /* Fixed Wax Seal */
         .wax-seal {
             position: absolute; top: 50%; left: 50%; transform: translate(-50%, -20%);
             z-index: 60; transition: opacity 0.3s; pointer-events: none;
         }
-        .open .wax-seal { opacity: 0; }
 
         .lily-stamp { width: 65px; height: 85px; border: 1px solid #eee; object-fit: cover; }
-
-        /* Spotify Player - Positioned Behind the Letter Card */
-        #spotify-player {
-            position: absolute; top: 110%; left: 0; width: 100%;
-            transition: all 0.5s ease;
-        }
     </style>
 </head>
 <body class="min-h-screen">
@@ -81,7 +73,6 @@
     <h2 class="text-xl sm:text-2xl text-zinc-100 font-sans tracking-tight">Sorry, my pretty girl!</h2>
     <div class="space-y-4 text-zinc-400 text-sm font-mono italic border-l-2 border-zinc-800 pl-4">
         <p>The URL was probably wrong but you're everything that went right.</p>
-        <p>This love I got for you is 5ever.</p>
     </div>
     <button onclick="unlock()" class="mt-4 w-fit border border-zinc-700 bg-transparent px-8 py-3 hover:bg-zinc-800 transition uppercase text-[10px] tracking-[0.4em] text-zinc-300">Refresh</button>
 </div>
@@ -89,49 +80,49 @@
 <div id="valentine-screen" class="hidden valentine-container animate-in fade-in duration-1000">
     
     <div id="letter" class="letter-card">
-        <div class="grid grid-cols-2 gap-10 items-start">
-            <div class="space-y-5">
+        <div class="grid grid-cols-2 gap-8 items-start">
+            <div class="space-y-4">
                 <h2 class="handwritten text-4xl text-zinc-900 leading-none">My Sharika,</h2>
-                <p class="font-bold text-red-800 text-[12px] uppercase tracking-widest">Happy Valentine's day!</p>
-                <p class="text-zinc-800 text-[14px] italic leading-relaxed">
+                <p class="font-bold text-red-800 text-[11px] uppercase tracking-widest mt-1">Happy Valentine's day!</p>
+                <p class="text-zinc-800 text-[13px] italic mt-4 leading-relaxed">
                     What a beautiful privilege it is to love you in every way; all the love languages, HTML code, and these little big things that only we know about.
                 </p>
-                <p class="text-[9px] uppercase text-zinc-400 tracking-tighter mt-12">Surprise! This is the "work" :3</p>
+                <p class="text-[9px] uppercase text-zinc-400 tracking-tighter pt-10">SURPRISE! THIS IS THE "WORK" :3</p>
             </div>
 
-            <div class="flex flex-col items-end justify-between h-full">
+            <div class="flex flex-col items-end space-y-6">
                 <img src="lily.jpg" class="lily-stamp" alt="lily">
                 
-                <div class="text-center w-full py-10">
-                    <p class="font-bold uppercase tracking-[0.1em] text-red-900 text-[11px] mb-4">Will you be my Valentine?</p>
-                    <button onclick="celebrate()" class="bg-red-800 text-white px-12 py-3 rounded-sm text-[11px] font-bold uppercase tracking-widest shadow-md hover:bg-red-700 transition-colors">YES</button>
+                <div class="text-center w-full">
+                    <p class="font-bold uppercase tracking-[0.1em] text-red-900 text-[10px] mb-3">Will you be my Valentine?</p>
+                    <button onclick="celebrate()" class="bg-red-800 text-white px-10 py-2 rounded-md text-[10px] font-bold uppercase tracking-widest shadow-md">YES</button>
+                    
+                    <div id="spotify-player" class="hidden mt-4 animate-in fade-in slide-in-from-top-2">
+                        <iframe style="border-radius:8px" src="https://open.spotify.com/embed/track/106680324888064?utm_source=generator" width="100%" height="80" frameBorder="0" allow="autoplay; encrypted-media;"></iframe>
+                    </div>
                 </div>
 
-                <div class="text-right w-full">
-                    <p class="handwritten text-xl text-red-700 leading-none">I love you.</p>
-                    <p class="text-[10px] text-zinc-400 uppercase mt-1">Solely yours,</p>
-                    <p class="handwritten text-3xl text-red-900 leading-none">— Angela.</p>
+                <div class="text-right w-full pt-4">
+                    <p class="handwritten text-lg text-red-700 leading-none">I love you.</p>
+                    <p class="text-[9px] text-zinc-400 uppercase mt-1">Solely yours,</p>
+                    <p class="handwritten text-2xl text-red-900 leading-none">— Angela.</p>
                 </div>
             </div>
-        </div>
-
-        <div id="spotify-player" class="hidden animate-in slide-in-from-top-4 duration-700">
-            <iframe style="border-radius:8px" src="http://googleusercontent.com/spotify.com/6" width="100%" height="80" frameBorder="0" allow="autoplay; encrypted-media;"></iframe>
         </div>
     </div>
 
     <div class="envelope-wrapper" id="envelope" onclick="openEnvelope()">
         <div class="flap-top"></div>
         <div class="pocket"></div>
-        <div class="wax-seal">
+        <div class="wax-seal" id="wax-seal">
             <div class="w-14 h-14 bg-red-800 rounded-full flex items-center justify-center text-white text-xl border-2 border-red-900 shadow-xl">ʚ♡ɞ</div>
         </div>
     </div>
     
-    <p class="text-[11px] mt-12 uppercase tracking-[0.6em] text-zinc-500 text-center animate-pulse" id="hint">Click to Open</p>
+    <p class="text-[11px] mt-10 uppercase tracking-[0.6em] text-zinc-500 text-center animate-pulse" id="hint">Click to Open</p>
 </div>
 
-<div id="timer-bar" class="fixed bottom-0 left-0 w-full bg-black py-6 border-t border-zinc-900 hidden z-[300]">
+<div id="timer-bar" class="fixed bottom-0 left-0 w-full bg-black py-6 border-t border-zinc-900 hidden z-[500]">
     <div id="timer" class="text-[12px] text-red-600 font-bold tracking-[0.4em] font-mono uppercase text-center w-full"></div>
 </div>
 
@@ -145,9 +136,11 @@
 
     function openEnvelope() {
         document.getElementById('envelope').classList.add('open');
+        document.getElementById('wax-seal').style.opacity = '0';
         setTimeout(() => {
             document.getElementById('letter').classList.add('visible');
-            document.getElementById('hint').style.opacity = '0';
+            document.getElementById('hint').classList.add('hidden');
+            document.getElementById('wax-seal').classList.add('hidden');
         }, 400);
     }
 
