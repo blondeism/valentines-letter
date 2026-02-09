@@ -8,43 +8,43 @@
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Crimson+Text:ital,wght@0,400;1,400&family=Dancing+Script:wght@600&family=Inter:wght@400;700&family=Space+Mono&display=swap" rel="stylesheet">
     <style>
-        /* White background for the main card phase */
-        body { background: #0a0a0a; color: #e5e7eb; font-family: 'Space Mono', monospace; transition: background 0.5s ease; overflow-x: hidden; }
-        .card-mode { background: #ffffff !important; color: #1a1a1a !important; }
-        
+        body { background: #0a0a0a; color: #e5e7eb; font-family: 'Space Mono', monospace; overflow-x: hidden; margin: 0; }
         .error-title { font-family: 'Inter', sans-serif; font-weight: 700; line-height: 0.9; letter-spacing: -0.04em; }
         .handwritten { font-family: 'Dancing Script', cursive; }
         .hidden { display: none !important; }
+        .card-mode { font-family: 'Crimson Text', serif; }
         
         /* The Envelope Base */
         .envelope-wrapper {
             width: 90vw; max-width: 400px; height: 260px;
-            position: relative; background: #f3f4f6;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.1); cursor: pointer;
-            z-index: 10; margin-top: 20px;
+            position: relative; background: #1a1a1a;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.5); cursor: pointer;
+            z-index: 10; margin-top: 20px; border: 1px solid #333;
         }
         
         .flap-top {
             position: absolute; top: 0; left: 0; width: 100%; height: 60%;
-            background: #e5e7eb; clip-path: polygon(0 0, 50% 100%, 100% 0);
+            background: #262626; clip-path: polygon(0 0, 50% 100%, 100% 0);
             z-index: 50; transition: transform 0.6s ease; transform-origin: top;
+            border-bottom: 1px solid #333;
         }
         .open .flap-top { transform: rotateX(180deg); }
 
         .pocket {
             position: absolute; bottom: 0; left: 0; width: 100%; height: 65%;
-            background: #f9fafb; clip-path: polygon(0 0, 50% 45%, 100% 0, 100% 100%, 0 100%);
-            z-index: 40; border-top: 1px solid #d1d5db;
+            background: #1f1f1f; clip-path: polygon(0 0, 50% 45%, 100% 0, 100% 100%, 0 100%);
+            z-index: 40; border-top: 1px solid #333;
         }
 
-        /* The Letter - Now pops ABOVE everything */
+        /* The Letter - High Depth Reveal */
         .letter-card {
             position: fixed; top: 50%; left: 50%; transform: translate(-50%, -45%) scale(0.8);
-            width: 95vw; max-width: 500px; background: #ffffff;
+            width: 95vw; max-width: 500px; background: #fcfaf7;
             padding: 25px; z-index: 1000; border-radius: 4px;
-            box-shadow: 0 50px 100px rgba(0,0,0,0.15), 0 0 0 1px rgba(0,0,0,0.05);
+            box-shadow: 0 50px 100px rgba(0,0,0,0.8);
             opacity: 0; pointer-events: none;
             transition: all 0.6s cubic-bezier(0.19, 1, 0.22, 1);
+            color: #1a1a1a;
         }
         .letter-card.visible { opacity: 1; pointer-events: auto; transform: translate(-50%, -50%) scale(1); }
 
@@ -54,17 +54,20 @@
             z-index: 60; transition: opacity 0.3s; pointer-events: none;
         }
         .black-seal {
-            width: 50px; height: 50px; background: #1a1a1a; border-radius: 50%;
+            width: 50px; height: 50px; background: #000; border-radius: 50%;
             display: flex; align-items: center; justify-content: center;
-            color: white; font-size: 14px; border: 2px solid #000;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+            color: #991b1b; font-size: 14px; border: 2px solid #991b1b;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.5);
         }
 
-        .lily-stamp { width: 60px; height: 80px; border: 1px solid #eee; object-fit: cover; rotate: 2deg; }
+        .lily-stamp { width: 60px; height: 80px; border: 1px solid #ddd; object-fit: cover; rotate: 2deg; }
         
-        /* Fixed Bullets on Error Page */
-        .error-list { list-style-type: none; padding: 0; }
-        .error-list li::before { content: "• "; color: #3f3f46; font-weight: bold; }
+        /* No Button Runaway Animation */
+        @keyframes runAway {
+            0% { transform: translateX(0); opacity: 1; }
+            100% { transform: translateX(200vw); opacity: 0; }
+        }
+        .exit-screen { animation: runAway 0.5s forwards; pointer-events: none; }
     </style>
 </head>
 <body class="min-h-screen flex items-center justify-center">
@@ -75,24 +78,24 @@
         <h1 class="text-7xl sm:text-8xl error-title text-white uppercase">371</h1>
     </div>
     <h2 class="text-xl sm:text-2xl text-zinc-100 font-sans tracking-tight">Sorry, my pretty girl!</h2>
-    <div class="space-y-4 text-zinc-400 text-sm font-mono italic border-l-2 border-zinc-800 pl-4">
+    <div class="space-y-6 text-zinc-400 text-sm font-mono italic border-l-2 border-zinc-800 pl-4">
         <p>The requested resource could not be found on this server. Please try again.</p>
-        <ul class="error-list space-y-2">
-            <li>The URL was probably wrong but you're everything that went right.</li>
-            <li>The resource may no longer exist but this love I got for you? Eternal.</li>
-            <li>Please try again later, mon amour. I lied. Try again neow.</li>
-        </ul>
+        <div class="space-y-4">
+            <p>The URL was probably wrong but you're everything that went right. #YesMaam!</p>
+            <p>The resource may no longer exist but this love I got for you is 5ever.</p>
+            <p>Please try again later, mon amour. I lied. Try again neow.</p>
+        </div>
     </div>
     <button onclick="unlock()" class="mt-4 border border-zinc-700 bg-transparent px-8 py-3 hover:bg-zinc-800 transition uppercase text-[10px] tracking-[0.4em] text-zinc-300">Refresh</button>
 </div>
 
-<div id="valentine-screen" class="hidden flex flex-col items-center justify-center w-full min-h-screen animate-in fade-in duration-700">
+<div id="valentine-screen" class="hidden flex flex-col items-center justify-center w-full min-h-screen animate-in fade-in duration-700 pb-20">
     
     <div id="letter" class="letter-card">
         <div class="flex justify-between items-start mb-4">
             <div class="space-y-1">
                 <h2 class="handwritten text-4xl text-zinc-900">Dearest Sharika,</h2>
-                <p class="text-red-600 font-bold text-[13px] uppercase tracking-tighter">Happy Valentine's day, my love!</p>
+                <p class="text-red-800 font-bold text-[14px] uppercase tracking-tighter">Happy Valentine's day, my love!</p>
             </div>
             <img src="lily.jpg" class="lily-stamp" alt="lily">
         </div>
@@ -102,20 +105,24 @@
         </p>
 
         <div class="flex flex-col items-center border-t border-zinc-100 pt-6 space-y-4">
-            <p class="font-bold uppercase tracking-widest text-zinc-900 text-[10px]">Will you be my Valentine?</p>
-            <button id="yesBtn" onclick="celebrate()" class="bg-red-700 hover:bg-red-800 text-white px-12 py-2 rounded-full text-[11px] font-bold uppercase tracking-widest transition-transform active:scale-90">YES!</button>
+            <p class="font-bold uppercase tracking-widest text-[#991b1b] text-[16px]">Will you be my Valentine?</p>
+            
+            <div class="flex gap-4 w-full justify-center items-center" id="button-container">
+                <button id="yesBtn" onclick="celebrate()" class="bg-[#991b1b] text-white px-12 py-3 rounded-full text-[12px] font-bold uppercase tracking-widest transition-transform active:scale-90 shadow-lg">YES!</button>
+                <button id="noBtn" onclick="runAway()" class="border border-zinc-300 text-zinc-400 px-8 py-3 rounded-full text-[10px] uppercase tracking-widest transition-all">No</button>
+            </div>
             
             <div id="spotify-container" class="hidden w-full animate-in fade-in slide-in-from-bottom-2">
-                <iframe id="spotify-player" style="border-radius:12px" src="https://open.spotify.com/embed/track/1o82DwNisONAd2mu1RcGE6?utm_source=generator&autoplay=1" width="100%" height="80" frameBorder="0" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+                <iframe id="spotify-player" style="border-radius:12px" src="https://open.spotify.com/embed/track/1o82DwNisONAd2mu1RcGE6?utm_source=generator&autoplay=1" width="100%" height="80" frameBorder="0" allow="autoplay; encrypted-media;"></iframe>
             </div>
         </div>
 
         <div class="flex justify-between items-end mt-8 border-t border-zinc-50 pt-4">
             <p class="text-[9px] uppercase text-zinc-400 tracking-widest">Surprise! Told you I got "work" :3</p>
             <div class="text-right">
-                <p class="handwritten text-xl text-red-700">I love you, Shrki!</p>
+                <p class="handwritten text-xl text-[#991b1b]">I love you.</p>
                 <p class="text-[9px] text-zinc-400 uppercase">Solely yours,</p>
-                <p class="handwritten text-3xl text-red-800 leading-none">Angela.</p>
+                <p class="handwritten text-3xl text-[#991b1b] leading-none">— Angela.</p>
             </div>
         </div>
     </div>
@@ -128,11 +135,11 @@
         </div>
     </div>
     
-    <p class="text-[11px] mt-12 uppercase tracking-[0.6em] text-zinc-400 text-center animate-pulse" id="hint">Click to Open</p>
+    <p class="text-[11px] mt-12 uppercase tracking-[0.6em] text-zinc-500 text-center animate-pulse" id="hint">Click to Open</p>
 </div>
 
-<div id="timer-bar" class="fixed bottom-0 left-0 w-full py-6 hidden z-[2000]">
-    <div id="timer" class="text-[11px] text-red-600 font-bold tracking-[0.5em] font-mono uppercase text-center w-full"></div>
+<div id="timer-bar" class="fixed bottom-0 left-0 w-full py-8 hidden z-[2000] bg-black/50 backdrop-blur-sm">
+    <div id="timer" class="text-[12px] text-[#991b1b] font-bold tracking-[0.5em] font-mono uppercase text-center w-full"></div>
 </div>
 
 <script>
@@ -140,7 +147,6 @@
         document.getElementById('error-screen').classList.add('hidden');
         document.getElementById('valentine-screen').classList.remove('hidden');
         document.getElementById('timer-bar').classList.remove('hidden');
-        document.body.classList.add('card-mode');
         startTimer();
     }
 
@@ -151,6 +157,12 @@
             document.getElementById('letter').classList.add('visible');
             document.getElementById('hint').classList.add('hidden');
         }, 400);
+    }
+
+    function runAway() {
+        const noBtn = document.getElementById('noBtn');
+        noBtn.classList.add('exit-screen');
+        setTimeout(() => { noBtn.classList.add('hidden'); }, 500);
     }
 
     function startTimer() {
@@ -167,17 +179,16 @@
     }
 
     function celebrate() {
-        // Show Spotify & Trigger Confetti
         document.getElementById('spotify-container').classList.remove('hidden');
-        document.getElementById('yesBtn').classList.add('hidden');
+        document.getElementById('noBtn').classList.add('hidden');
+        document.getElementById('yesBtn').innerText = "I LOVE YOU TOO!";
         
         const end = Date.now() + (10 * 1000);
-        const palette = ['#b91c1c', '#f472b6', '#ffffff'];
+        const palette = ['#991b1b', '#f472b6', '#ffffff'];
 
         (function frame() {
             confetti({ particleCount: 3, angle: 60, spread: 55, origin: { x: 0 }, colors: palette });
             confetti({ particleCount: 3, angle: 120, spread: 55, origin: { x: 1 }, colors: palette });
-            // Added Heart Confetti
             confetti({ particleCount: 2, shapes: ['text'], shapeOptions: { text: { value: ['❤️', '💖'] } }, origin: { y: 0.8 }, scalar: 2 });
             
             if (Date.now() < end) { requestAnimationFrame(frame); }
