@@ -186,4 +186,28 @@
                 angle: 60, 
                 spread: 55, 
                 origin: { x: 0 }, 
-                colors: ['#b91c1c', '#f4
+                colors: ['#b91c1c', '#f472b6', '#7f1d1d', '#dc2626']
+            });
+            confetti({ 
+                particleCount: 2, 
+                angle: 120, 
+                spread: 55, 
+                origin: { x: 1 }, 
+                colors: ['#b91c1c', '#f472b6', '#7f1d1d', '#dc2626'] 
+            });
+            
+            if(Math.random() > 0.8) {
+                confetti({ 
+                    particleCount: 1, 
+                    shapes: ['text'], 
+                    shapeOptions: { text: { value: ['❤️','🌹','💖'] } }, 
+                    origin: { y: 0.75 }, 
+                    scalar: 2.5 
+                });
+            }
+            requestAnimationFrame(frame);
+        }());
+    }
+</script>
+</body>
+</html>
