@@ -8,18 +8,17 @@
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Crimson+Text:ital,wght@0,400;0,700;1,400&family=Dancing+Script:wght@600&family=Inter:wght@400;700&family=Space+Mono&display=swap" rel="stylesheet">
     <style>
-        /* Exact fonts from your screenshot */
         body { background: #0a0a0a; color: #e5e7eb; font-family: 'Space Mono', monospace; overflow-x: hidden; margin: 0; }
         .error-title { font-family: 'Inter', sans-serif; font-weight: 700; }
         .handwritten { font-family: 'Dancing Script', cursive; }
         .hidden { display: none; }
         .card-mode { font-family: 'Crimson Text', serif; background: #0f0f0f; }
         
-        /* Reinforced Envelope - Guaranteed No Overlap */
+        /* Reinforced Envelope - Prevents Tweaking */
         .envelope-wrapper {
             width: 95vw;
             max-width: 500px;
-            height: 350px;
+            height: 380px;
             position: relative;
             background: #d1d1d1;
             margin: auto;
@@ -38,11 +37,12 @@
 
         .letter-content {
             position: absolute; left: 5%; bottom: 5%; width: 90%; height: 90%;
-            background: #fcfaf7; padding: 30px;
+            background: #fcfaf7; padding: 25px;
             transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
             z-index: 20; box-shadow: inset 0 0 30px rgba(0,0,0,0.05);
+            overflow-y: auto;
         }
-        .open .letter-content { transform: translateY(-45%); z-index: 45; height: auto; min-height: 100%; }
+        .open .letter-content { transform: translateY(-50%); z-index: 45; height: auto; min-height: 100%; }
 
         .pocket {
             position: absolute; bottom: 0; left: 0; width: 100%; height: 60%;
@@ -55,6 +55,11 @@
             z-index: 60; transition: opacity 0.3s;
         }
         .open .wax-seal { opacity: 0; pointer-events: none; }
+
+        .lily-stamp {
+            width: 50px; height: 70px; border: 2px solid white; box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            transform: rotate(3deg); object-fit: cover;
+        }
     </style>
 </head>
 <body class="min-h-screen flex flex-col items-center justify-center p-4">
@@ -68,7 +73,7 @@
     <div class="space-y-6 text-zinc-400 text-sm sm:text-base leading-relaxed font-mono">
         <p>The requested resource could not be found on this server. Please try again.</p>
         <ul class="list-none space-y-4 italic text-zinc-500 border-l-2 border-zinc-800 pl-6">
-            <li>The URL was probably wrong but you're everything that went right.</li>
+            <li>The URL was probably wrong but you're everything that went right. #YesMaam!</li>
             <li>The resource may no longer exist but this love I got for you is 5ever.</li>
             <li>Please try again later, mon amour. I lied. Try again neow.</li>
         </ul>
@@ -85,7 +90,7 @@
             <div class="border border-red-50 p-4 sm:p-6 space-y-6">
                 <div class="flex justify-between items-start">
                     <h2 class="handwritten text-3xl text-zinc-900 leading-none">Dearest Sharika,</h2>
-                    <img src="lily.jpg" class="w-10 h-14 object-cover border-2 border-white shadow-md rotate-2">
+                    <img src="lily.jpg" class="lily-stamp">
                 </div>
                 
                 <div class="space-y-4 text-zinc-800 text-sm sm:text-base italic leading-relaxed">
