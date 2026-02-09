@@ -8,76 +8,78 @@
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Crimson+Text:ital,wght@0,400;0,700;1,400&family=Dancing+Script:wght@600&display=swap" rel="stylesheet">
     <style>
-        body { background: #0a0a0a; color: #e5e7eb; font-family: monospace; overflow-x: hidden; }
+        body { background: #0a0a0a; color: #e5e7eb; font-family: monospace; overflow-x: hidden; margin: 0; padding: 0; }
         .handwritten { font-family: 'Dancing Script', cursive; }
         .hidden { display: none; }
         .card-mode { font-family: 'Crimson Text', serif; background: #0f0f0f; }
         
-        /* The Envelope Flap */
-        .envelope-wrapper { position: relative; width: 100%; max-width: 450px; margin: 0 auto; }
-        .flap {
-            position: absolute; top: 0; left: 0; width: 100%; height: 50%;
-            background: #f3f4f6; clip-path: polygon(0 0, 50% 100%, 100% 0);
-            transition: transform 0.6s ease; z-index: 30; origin-top;
+        /* Smooth Letter Animation */
+        .letter-content {
+            transform: translateY(100%);
+            transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
         }
-        .envelope-wrapper:hover .flap { transform: rotateX(180deg); }
+        .open .letter-content { transform: translateY(-20%); }
+
+        /* Responsive Container */
+        .envelope-container {
+            width: 95vw;
+            max-width: 420px;
+            position: relative;
+        }
     </style>
 </head>
-<body class="min-h-screen flex items-center justify-center p-4">
+<body class="min-h-screen flex flex-col items-center justify-center p-4">
 
-<div id="error-screen" class="w-full max-w-md space-y-6 text-left">
-    <h1 class="text-7xl font-bold text-white">ERROR 371</h1>
-    <h2 class="text-2xl text-zinc-300">Sorry, my pretty girl!</h2>
-    <div class="space-y-4 text-zinc-400 text-sm leading-relaxed">
-        <p>The requested resource could not be found on this server. Please try again.</p>
-        <ul class="list-disc pl-5 space-y-2 text-zinc-500">
-            <li>The URL might've been wrong but you're everything that is right. #YesMaam!</li>
-            <li>The resource may no longer exist but this love I have for you? Eternal.</li>
-            <li>Please try again later, mi amor. I lied. Try again now.</li>
+<div id="error-screen" class="w-full max-w-[320px] sm:max-w-md space-y-4 text-left px-2">
+    <h1 class="text-5xl sm:text-7xl font-bold text-white tracking-tighter">ERROR 371</h1>
+    <h2 class="text-lg sm:text-2xl text-zinc-300">Sorry, my pretty girl!</h2>
+    <div class="space-y-3 text-zinc-400 text-[12px] sm:text-sm leading-relaxed">
+        <p>The requested resource could not be found. Please try again.</p>
+        <ul class="list-none space-y-3 italic text-zinc-500 border-l border-zinc-800 pl-4">
+            <li>• The URL was probably wrong but you're everything that went right.</li>
+            <li>• The resource may no longer exist but this love is 5ever.</li>
+            <li>• Please try again later, mon amour. I lied. Try again neow.</li>
         </ul>
     </div>
-    <button onclick="unlock()" class="mt-8 bg-zinc-800 border border-zinc-700 px-8 py-3 hover:bg-zinc-700 transition uppercase text-xs tracking-[0.3em]">Refresh</button>
+    <button onclick="unlock()" class="mt-6 w-full sm:w-auto bg-zinc-900 border border-zinc-800 px-8 py-3 hover:bg-zinc-800 transition uppercase text-[10px] tracking-[0.3em] text-zinc-300">Refresh</button>
 </div>
 
-<div id="valentine-screen" class="hidden w-full max-w-lg animate-in fade-in zoom-in duration-700">
-    <div class="text-center space-y-6">
-        
-        <div id="timer" class="text-red-500 font-mono text-[10px] tracking-widest bg-red-950/20 py-2 rounded border border-red-900/30 uppercase">
-            Initialising...
-        </div>
-
-        <div class="envelope-wrapper group bg-white shadow-2xl rounded-sm aspect-[4/3] flex items-center justify-center relative">
-            <div class="flap shadow-md"></div>
+<div id="valentine-screen" class="hidden w-full flex flex-col items-center animate-in fade-in duration-700">
+    
+    <div class="envelope-container group cursor-pointer" id="envelope" onclick="this.classList.toggle('open'); revealMusic();">
+        <div class="relative bg-white shadow-2xl aspect-[4/3] rounded-sm overflow-hidden z-20">
+            <div class="absolute inset-0 bg-zinc-100 z-30 transition-transform duration-500 origin-top group-[.open]:rotateX-180" style="clip-path: polygon(0 0, 50% 60%, 100% 0);"></div>
             
-            <div class="absolute inset-x-2 bottom-2 bg-[#fcfaf7] p-4 sm:p-8 border border-zinc-200 shadow-inner z-20 transition-all duration-700 group-hover:-translate-y-1/2 group-hover:z-40">
-                <div class="border border-red-100 p-3 sm:p-6 space-y-4 text-left">
-                    <div class="flex justify-between items-start">
-                        <h2 class="handwritten text-2xl sm:text-3xl text-zinc-900">My Dearest, Sharika</h2>
-                        <img src="lily.jpg" class="w-10 h-14 object-cover rotate-3 border border-white shadow-sm">
+            <div class="letter-content absolute inset-x-4 top-4 bg-[#fcfaf7] p-6 shadow-inner border border-zinc-100">
+                <div class="border border-red-50 p-4 space-y-4">
+                    <div class="flex justify-between">
+                        <h2 class="handwritten text-2xl text-zinc-900">Dearest Sharika,</h2>
+                        <img src="lily.jpg" class="w-8 h-12 object-cover border-2 border-white shadow-sm rotate-2">
                     </div>
-
-                    <p class="text-[13px] sm:text-base leading-relaxed text-zinc-700 italic">
-                        As I write this, I think of the way your lips curl into this damning smile... and how I can't seem to wipe every bit of me clean, not with the way you've colored me all over. What a beautiful privilege it is to love you and be loved by you in every love language; html code, words of affirmation to gift giving, and these little big things that only we know about. Happy Valentine's day, my love! And if it's not too much...
+                    <p class="text-[14px] leading-relaxed text-zinc-700 italic">
+                        
+ I'm thinking of the way your lips curl into this damning smile I can never forget. I can't seem to wipe every bit of me clean, not with the way you've colored me all over. What a beautiful privilege it is to love you and be loved by you in every love language; html code, words of affirmation to gift giving, and these little big things that only we know about. Happy Valentine's day, my love! And if it's not too much...
                     </p>
-
-                    <div class="pt-2">
-                        <iframe style="border-radius:12px" src="https://open.spotify.com/embed/track/3yfq7jC1v9Yhwqr9ZasM9s?utm_source=generator" width="100%" height="80" frameBorder="0" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
-                    </div>
-
-                    <div class="text-center pt-4">
-                        <p class="font-bold uppercase tracking-widest text-red-900 text-[10px] mb-3">Will you be my Valentine?</p>
-                        <button onclick="celebrate()" class="bg-red-800 hover:bg-red-700 text-white px-6 py-2 rounded-full text-xs shadow-lg transition-transform active:scale-95">YES!</button>
+                    <div class="text-center">
+                         <button onclick="celebrate()" class="bg-red-800 text-white px-6 py-1 rounded-full text-[10px] uppercase tracking-widest">Yes!</button>
                     </div>
                 </div>
             </div>
             
-            <div class="absolute inset-0 bg-zinc-50 z-10 border-t border-zinc-200"></div>
-            <div class="absolute bottom-4 w-full text-center z-50 pointer-events-none">
-                <p class="text-red-900 font-bold tracking-[0.4em] text-[10px] uppercase">Hover to Open</p>
+            <div class="absolute bottom-4 left-1/2 -translate-x-1/2 z-40 group-[.open]:hidden">
+                <div class="w-10 h-10 bg-red-800 rounded-full flex items-center justify-center text-white text-xs border-2 border-red-900">˚ʚ♡ɞ˚</div>
             </div>
         </div>
+        <p class="text-[10px] mt-4 uppercase tracking-[0.5em] text-zinc-500 text-center animate-pulse">Click to Open</p>
     </div>
+
+    <div id="spotify-player" class="hidden mt-8 w-full max-w-[350px] animate-in slide-in-from-bottom duration-1000">
+        <iframe style="border-radius:12px" src="http://googleusercontent.com/spotify.com/1o82DwNisONAd2mu1RcGE6" width="100%" height="80" frameBorder="0" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+    </div>
+
 </div>
+
+<div id="timer" class="fixed bottom-4 text-[10px] text-zinc-600 tracking-[0.3em] font-mono uppercase text-center w-full"></div>
 
 <script>
     function unlock() {
@@ -85,6 +87,11 @@
         document.getElementById('valentine-screen').classList.remove('hidden');
         document.body.classList.add('card-mode');
         startTimer();
+    }
+
+    function revealMusic() {
+        // Only shows the music once she interacts with the envelope
+        document.getElementById('spotify-player').classList.remove('hidden');
     }
 
     function startTimer() {
@@ -96,17 +103,15 @@
             const h = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
             const m = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
             const s = Math.floor((diff % (1000 * 60)) / 1000);
-            document.getElementById("timer").innerHTML = `${d}D : ${h}H : ${m}M : ${s}S UNTIL VALENTINES`;
+            document.getElementById("timer").innerHTML = `${d}D : ${h}H : ${m}M : ${s}S REMAINING`;
         }, 1000);
     }
 
     function celebrate() {
-        const end = Date.now() + 5000;
-        const colors = ['#ff0000', '#ff69b4', '#ffffff'];
+        const end = Date.now() + 3000;
         (function frame() {
-            confetti({ particleCount: 5, angle: 60, spread: 55, origin: { x: 0 }, colors: colors });
-            confetti({ particleCount: 5, angle: 120, spread: 55, origin: { x: 1 }, colors: colors });
-            confetti({ particleCount: 2, shapes: ['text'], shapeOptions: { text: { value: ['🌸','🌹','🌷'] } }, origin: { y: 0.8 }, scalar: 2 });
+            confetti({ particleCount: 3, angle: 60, spread: 55, origin: { x: 0 }, colors: ['#ff0000', '#ff69b4'] });
+            confetti({ particleCount: 3, angle: 120, spread: 55, origin: { x: 1 }, colors: ['#ff0000', '#ff69b4'] });
             if (Date.now() < end) requestAnimationFrame(frame);
         }());
     }
