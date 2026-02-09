@@ -16,7 +16,7 @@
         .valentine-container {
             position: relative;
             display: flex; flex-direction: column; align-items: center; justify-content: center;
-            height: 100vh; padding-bottom: 60px;
+            height: 100vh; padding-bottom: 80px;
         }
 
         /* The Envelope Base */
@@ -24,7 +24,7 @@
             width: 90vw; max-width: 450px; height: 280px;
             position: relative; background: #fffdfa;
             box-shadow: 0 10px 40px rgba(0,0,0,0.5); cursor: pointer;
-            transition: transform 0.5s ease;
+            transition: transform 0.5s ease; z-index: 10;
         }
         
         .flap-top {
@@ -41,30 +41,34 @@
             z-index: 40; border-top: 1px solid #f0efeb;
         }
 
-        /* THE FIX: Independent Letter Layer */
+        /* Independent Letter Layer */
         .letter-card {
             position: absolute;
-            width: 95vw; max-width: 580px;
-            background: #fffdfa; padding: 30px;
-            z-index: 200; border-radius: 4px;
-            box-shadow: 0 30px 60px rgba(0,0,0,0.8);
+            width: 95vw; max-width: 600px;
+            background: #fffdfa; padding: 35px;
+            z-index: 200; border-radius: 2px;
+            box-shadow: 0 30px 60px rgba(0,0,0,0.9);
             opacity: 0; pointer-events: none;
-            transform: scale(0.8) translateY(20px);
+            transform: scale(0.9) translateY(40px);
             transition: all 0.7s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
         
-        .letter-card.visible {
-            opacity: 1; pointer-events: auto;
-            transform: scale(1) translateY(0);
-        }
+        .letter-card.visible { opacity: 1; pointer-events: auto; transform: scale(1) translateY(0); }
 
+        /* Fixed Wax Seal */
         .wax-seal {
-            position: absolute; bottom: 15%; left: 50%; transform: translateX(-50%);
-            z-index: 60; transition: opacity 0.3s;
+            position: absolute; top: 50%; left: 50%; transform: translate(-50%, -20%);
+            z-index: 60; transition: opacity 0.3s; pointer-events: none;
         }
         .open .wax-seal { opacity: 0; }
 
-        .lily-stamp { width: 60px; height: 80px; border: 1px solid #eee; object-fit: cover; }
+        .lily-stamp { width: 65px; height: 85px; border: 1px solid #eee; object-fit: cover; }
+
+        /* Spotify Player - Positioned Behind the Letter Card */
+        #spotify-player {
+            position: absolute; top: 110%; left: 0; width: 100%;
+            transition: all 0.5s ease;
+        }
     </style>
 </head>
 <body class="min-h-screen">
@@ -76,9 +80,8 @@
     </div>
     <h2 class="text-xl sm:text-2xl text-zinc-100 font-sans tracking-tight">Sorry, my pretty girl!</h2>
     <div class="space-y-4 text-zinc-400 text-sm font-mono italic border-l-2 border-zinc-800 pl-4">
-       <li>The URL was probably wrong but you're everything that went right.</li>
-            <li>The resource may no longer exist but this love I got for you is 5ever.</li>
-            <li>Please try again later, mon amour. I lied. Try again neow.</li>
+        <p>The URL was probably wrong but you're everything that went right.</p>
+        <p>This love I got for you is 5ever.</p>
     </div>
     <button onclick="unlock()" class="mt-4 w-fit border border-zinc-700 bg-transparent px-8 py-3 hover:bg-zinc-800 transition uppercase text-[10px] tracking-[0.4em] text-zinc-300">Refresh</button>
 </div>
@@ -86,8 +89,8 @@
 <div id="valentine-screen" class="hidden valentine-container animate-in fade-in duration-1000">
     
     <div id="letter" class="letter-card">
-        <div class="grid grid-cols-2 gap-8 items-start">
-            <div class="space-y-4">
+        <div class="grid grid-cols-2 gap-10 items-start">
+            <div class="space-y-5">
                 <h2 class="handwritten text-4xl text-zinc-900 leading-none">My Sharika,</h2>
                 <p class="font-bold text-red-800 text-[12px] uppercase tracking-widest">Happy Valentine's day!</p>
                 <p class="text-zinc-800 text-[14px] italic leading-relaxed">
@@ -99,9 +102,9 @@
             <div class="flex flex-col items-end justify-between h-full">
                 <img src="lily.jpg" class="lily-stamp" alt="lily">
                 
-                <div class="text-center w-full py-8">
+                <div class="text-center w-full py-10">
                     <p class="font-bold uppercase tracking-[0.1em] text-red-900 text-[11px] mb-4">Will you be my Valentine?</p>
-                    <button onclick="celebrate()" class="bg-red-800 text-white px-10 py-3 rounded-md text-[11px] font-bold uppercase tracking-widest shadow-md">YES</button>
+                    <button onclick="celebrate()" class="bg-red-800 text-white px-12 py-3 rounded-sm text-[11px] font-bold uppercase tracking-widest shadow-md hover:bg-red-700 transition-colors">YES</button>
                 </div>
 
                 <div class="text-right w-full">
@@ -110,6 +113,10 @@
                     <p class="handwritten text-3xl text-red-900 leading-none">— Angela.</p>
                 </div>
             </div>
+        </div>
+
+        <div id="spotify-player" class="hidden animate-in slide-in-from-top-4 duration-700">
+            <iframe style="border-radius:8px" src="http://googleusercontent.com/spotify.com/6" width="100%" height="80" frameBorder="0" allow="autoplay; encrypted-media;"></iframe>
         </div>
     </div>
 
@@ -122,10 +129,6 @@
     </div>
     
     <p class="text-[11px] mt-12 uppercase tracking-[0.6em] text-zinc-500 text-center animate-pulse" id="hint">Click to Open</p>
-
-    <div id="spotify-player" class="hidden mt-8 w-full max-w-[400px] px-4">
-        <iframe style="border-radius:12px" src="https://open.spotify.com/embed/track/1o82DwNisONAd2mu1RcGE6" width="100%" height="80" frameBorder="0" allow="autoplay; encrypted-media;"></iframe>
-    </div>
 </div>
 
 <div id="timer-bar" class="fixed bottom-0 left-0 w-full bg-black py-6 border-t border-zinc-900 hidden z-[300]">
