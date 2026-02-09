@@ -9,11 +9,9 @@
     <link href="https://fonts.googleapis.com/css2?family=Crimson+Text:ital,wght@0,400;0,700;1,400&family=Dancing+Script:wght@600&family=Inter:wght@400;700&family=Space+Mono&display=swap" rel="stylesheet">
     <style>
         body { background: #0a0a0a; color: #e5e7eb; font-family: 'Space Mono', monospace; overflow-x: hidden; margin: 0; transition: background 0.5s ease; }
-        .error-title { font-family: 'Inter', sans-serif; font-weight: 700; line-height: 0.8; letter-spacing: -0.05em; }
+        .error-title { font-family: 'Inter', sans-serif; font-weight: 700; line-height: 0.9; letter-spacing: -0.04em; }
         .handwritten { font-family: 'Dancing Script', cursive; }
         .hidden { display: none; }
-        
-        /* Reverted to Black Background */
         .card-mode { background: #0a0a0a !important; color: #e5e7eb !important; }
         
         .valentine-container {
@@ -52,7 +50,6 @@
             pointer-events: none;
         }
         
-        /* Adjusted: Letter stays centered and readable */
         .open .letter-content { 
             transform: translateY(-55%); 
             z-index: 100; 
@@ -80,12 +77,12 @@
 </head>
 <body class="min-h-screen flex flex-col items-center justify-center p-4">
 
-<div id="error-screen" class="w-full max-w-lg space-y-8 text-left px-4">
+<div id="error-screen" class="w-full max-w-md space-y-6 text-left px-4">
     <div>
-        <h1 class="text-[8rem] sm:text-[10rem] error-title text-white uppercase">ERROR</h1>
-        <h1 class="text-[8rem] sm:text-[10rem] error-title text-white uppercase">371</h1>
+        <h1 class="text-6xl sm:text-8xl error-title text-white uppercase">ERROR</h1>
+        <h1 class="text-6xl sm:text-8xl error-title text-white uppercase">371</h1>
     </div>
-    <h2 class="text-2xl text-zinc-100 font-sans tracking-tight">Sorry, my pretty girl!</h2>
+    <h2 class="text-xl sm:text-2xl text-zinc-100 font-sans tracking-tight">Sorry, my pretty girl!</h2>
     <div class="space-y-4 text-zinc-400 text-sm font-mono leading-relaxed">
         <p>The requested resource could not be found on this server.</p>
         <div class="italic text-zinc-500 border-l-2 border-zinc-800 pl-4 space-y-3">
@@ -94,7 +91,7 @@
             <p>Please try again later, mon amour. I lied. Try again neow.</p>
         </div>
     </div>
-    <button onclick="unlock()" class="mt-4 border border-zinc-700 bg-transparent px-10 py-4 hover:bg-zinc-800 transition uppercase text-xs tracking-[0.4em] text-zinc-300">Refresh</button>
+    <button onclick="unlock()" class="mt-4 border border-zinc-700 bg-transparent px-8 py-3 hover:bg-zinc-800 transition uppercase text-[10px] tracking-[0.4em] text-zinc-300">Refresh</button>
 </div>
 
 <div id="valentine-screen" class="hidden w-full valentine-container animate-in fade-in duration-1000">
@@ -113,7 +110,6 @@
                 </div>
                 
                 <div class="text-zinc-800 text-[13px] italic leading-relaxed space-y-3">
-                    <p>I'm thinking of the way your lips curl into this damning smile I can never forget. I can't seem to wipe every bit of me clean, not with the way you've colored me all over.</p>
                     <p>What a beautiful privilege it is to love you in every way; all the love languages, HTML code, and these little big things that only we know about.</p>
                 </div>
 
@@ -143,7 +139,7 @@
     <p class="text-[11px] mt-6 uppercase tracking-[0.6em] text-zinc-500 text-center animate-pulse" id="hint-text">Click to Open</p>
 
     <div id="spotify-player" class="hidden mt-6 w-full max-w-[340px] animate-in slide-in-from-bottom duration-1000 px-4">
-        <iframe style="border-radius:12px" src="https://open.spotify.com/embed/track/1o82DwNisONAd2mu1RcGE6?utm_source=generator" width="100%" height="80" frameBorder="0" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+        <iframe style="border-radius:12px" src="https://open.spotify.com/embed/track/1p80pS7S646qyK7m9zR4Ty?utm_source=generator" width="100%" height="80" frameBorder="0" allow="autoplay; encrypted-media;"></iframe>
     </div>
 </div>
 
@@ -185,7 +181,6 @@
             const timeLeft = animationEnd - Date.now();
             if (timeLeft <= 0) return;
 
-            // NO BLUE - Only Red and Pink
             confetti({ 
                 particleCount: 3, 
                 angle: 60, 
