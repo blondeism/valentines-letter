@@ -6,31 +6,22 @@
     <title>404 Not Found</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Crimson+Text:ital,wght@0,400;0,700;1,400&family=Dancing+Script:wght@600&family=Inter:wght@400;700&family=Space+Mono&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Crimson+Text:ital,wght@0,400;1,400&family=Dancing+Script:wght@600&family=Inter:wght@400;700&family=Space+Mono&display=swap" rel="stylesheet">
     <style>
-        body { background: #0a0a0a; color: #e5e7eb; font-family: 'Space Mono', monospace; overflow-x: hidden; margin: 0; transition: background 0.5s ease; }
+        body { background: #0a0a0a; color: #e5e7eb; font-family: 'Space Mono', monospace; overflow-x: hidden; margin: 0; }
         .error-title { font-family: 'Inter', sans-serif; font-weight: 700; line-height: 0.9; letter-spacing: -0.04em; }
         .handwritten { font-family: 'Dancing Script', cursive; }
         .hidden { display: none; }
         
         .valentine-container {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: flex-end;
-            min-height: 85vh;
-            padding-bottom: 100px;
+            display: flex; flex-direction: column; align-items: center; justify-content: flex-end;
+            min-height: 90vh; padding-bottom: 120px;
         }
 
         .envelope-wrapper {
-            width: 92vw;
-            max-width: 400px;
-            height: 240px;
-            position: relative;
-            background: #fffdfa;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.5);
-            cursor: pointer;
-            z-index: 10;
+            width: 94vw; max-width: 440px; height: 260px;
+            position: relative; background: #fffdfa;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.5); cursor: pointer; z-index: 10;
         }
         
         .flap-top {
@@ -42,18 +33,18 @@
         .open .flap-top { transform: rotateX(180deg); z-index: 5; }
 
         .letter-content {
-            position: absolute; left: 2%; bottom: 5%; width: 96%; 
-            background: #fffdfa; padding: 15px;
+            position: absolute; left: 0; bottom: 0; width: 100%; 
+            background: #fffdfa; padding: 20px;
             transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
-            z-index: 10; border: 1px solid #f5f5f5;
-            pointer-events: none;
+            z-index: 10; border: 1px solid #f5f5f5; pointer-events: none;
+            box-sizing: border-box;
         }
         
+        /* Centered layout - NOT see through anymore */
         .open .letter-content { 
-            transform: translateY(-55%); 
-            z-index: 100; 
-            height: auto;
-            box-shadow: 0 15px 45px rgba(0,0,0,0.3);
+            transform: translateY(-50%); 
+            z-index: 100; height: auto;
+            box-shadow: 0 15px 50px rgba(0,0,0,0.4);
             pointer-events: auto;
         }
 
@@ -64,14 +55,12 @@
         }
 
         .wax-seal {
-            position: absolute; bottom: 20%; left: 50%; transform: translateX(-50%);
+            position: absolute; bottom: 15%; left: 50%; transform: translateX(-50%);
             z-index: 60; transition: opacity 0.3s;
         }
         .open .wax-seal { opacity: 0; pointer-events: none; }
 
-        .lily-stamp {
-            width: 40px; height: 50px; border: 1px solid #eee; object-fit: cover;
-        }
+        .lily-stamp { width: 45px; height: 65px; border: 1px solid #eee; object-fit: cover; }
     </style>
 </head>
 <body class="min-h-screen flex flex-col items-center justify-center p-4">
@@ -82,68 +71,60 @@
         <h1 class="text-6xl sm:text-8xl error-title text-white uppercase">371</h1>
     </div>
     <h2 class="text-xl sm:text-2xl text-zinc-100 font-sans tracking-tight">Sorry, my pretty girl!</h2>
-    <div class="space-y-4 text-zinc-400 text-sm font-mono leading-relaxed">
-        <p>The requested resource could not be found on this server.</p>
-        <div class="italic text-zinc-500 border-l-2 border-zinc-800 pl-4 space-y-3">
-            <p>The URL was probably wrong but you're everything that went right.</p>
-            <p>The resource may no longer exist but this love I got for you is 5ever.</p>
-            <p>Please try again later, mon amour. I lied. Try again neow.</p>
-        </div>
+    <div class="space-y-4 text-zinc-400 text-sm font-mono italic border-l-2 border-zinc-800 pl-4">
+        <p>The URL was probably wrong but you're everything that went right.</p>
+        <p>The resource may no longer exist but this love I got for you is 5ever.</p>
+        <p>Try again neow.</p>
     </div>
     <button onclick="unlock()" class="mt-4 border border-zinc-700 bg-transparent px-8 py-3 hover:bg-zinc-800 transition uppercase text-[10px] tracking-[0.4em] text-zinc-300">Refresh</button>
 </div>
 
 <div id="valentine-screen" class="hidden w-full valentine-container animate-in fade-in duration-1000">
-    
     <div class="envelope-wrapper" id="envelope" onclick="this.classList.toggle('open')">
         <div class="flap-top"></div>
         
         <div class="letter-content rounded-sm" onclick="event.stopPropagation()">
-            <div class="space-y-4 text-left">
-                <div class="flex justify-between items-start">
-                    <div class="space-y-0.5">
-                        <h2 class="handwritten text-xl text-zinc-900">Dearest Sharika,</h2>
-                        <p class="font-bold text-red-800 text-[10px] uppercase tracking-widest">Happy Valentine's day, my love!</p>
-                    </div>
-                    <img src="lily.jpg" class="lily-stamp" alt="lily">
-                </div>
+            <div class="grid grid-cols-2 gap-4 items-start">
                 
-                <div class="text-zinc-800 text-[12px] italic leading-tight space-y-2">
-                    <p>What a beautiful privilege it is to love you in every way; all the love languages, HTML code, and these little big things that only we know about.</p>
+                <div class="space-y-3">
+                    <h2 class="handwritten text-2xl text-zinc-900 leading-none">Dearest Sharika,</h2>
+                    <p class="font-bold text-red-800 text-[10px] uppercase tracking-tighter">Happy Valentine's day, my love!</p>
+                    <p class="text-zinc-800 text-[11px] italic leading-tight">What a beautiful privilege it is to love you in every way; all the love languages, HTML code, and these little big things that only we know about.</p>
+                    <div class="pt-2 text-left">
+                        <p class="text-[8px] uppercase text-zinc-400 tracking-tighter leading-none">Surprise! Told you I got "work" :3</p>
+                    </div>
                 </div>
 
-                <div class="grid grid-cols-3 items-center gap-2">
-                    <div class="text-left">
-                        <p class="text-[8px] uppercase text-zinc-400 tracking-tighter leading-tight">Surprise! Told you I got "work" :3</p>
+                <div class="flex flex-col items-end space-y-4">
+                    <img src="lily.jpg" class="lily-stamp" alt="lily">
+                    <div class="text-center w-full space-y-2">
+                        <p class="font-bold uppercase tracking-[0.05em] text-red-900 text-[10px]">Will you be my Valentine?</p>
+                        <button onclick="celebrate(event)" class="bg-red-800 text-white px-6 py-2 rounded-full text-[9px] font-bold uppercase tracking-widest shadow-md active:scale-95 transition-all">YES!</button>
                     </div>
-                    <div class="text-center">
-                        <p class="font-bold uppercase tracking-[0.1em] text-red-900 text-[9px] mb-1">Will you be my Valentine?</p>
-                        <button onclick="celebrate(event)" class="bg-red-800 text-white px-4 py-1.5 rounded-full text-[8px] font-bold uppercase tracking-widest shadow-md active:scale-95 transition-all">YES!</button>
-                    </div>
-                    <div class="text-right">
-                        <p class="handwritten text-[13px] text-red-700 leading-none mb-1">I love you.</p>
-                        <p class="text-[7px] text-zinc-400 uppercase leading-none">Solely yours,</p>
-                        <p class="handwritten text-xl text-red-900 leading-none">— A.</p>
+                    <div class="text-right w-full pt-1">
+                        <p class="handwritten text-sm text-red-700 leading-none">I love you.</p>
+                        <p class="text-[8px] text-zinc-400 uppercase mt-0.5 leading-none">Solely yours,</p>
+                        <p class="handwritten text-xl text-red-900 leading-none">— Angela.</p>
                     </div>
                 </div>
+
             </div>
         </div>
 
         <div class="pocket"></div>
-        
         <div class="wax-seal">
             <div class="w-12 h-12 bg-red-800 rounded-full flex items-center justify-center text-white text-lg border-2 border-red-900 shadow-xl transition-transform hover:scale-110">ʚ♡ɞ</div>
         </div>
     </div>
     
-    <p class="text-[11px] mt-6 uppercase tracking-[0.6em] text-zinc-500 text-center animate-pulse" id="hint-text">Click to Open</p>
+    <p class="text-[11px] mt-8 uppercase tracking-[0.6em] text-zinc-500 text-center animate-pulse" id="hint-text">Click to Open</p>
 
-    <div id="spotify-player" class="hidden mt-6 w-full max-w-[340px] animate-in slide-in-from-bottom duration-1000 px-4">
+    <div id="spotify-player" class="hidden mt-6 w-full max-w-[340px] px-4">
         <iframe style="border-radius:12px" src="https://open.spotify.com/embed/track/1o82DwNisONAd2mu1RcGE6?utm_source=generator" width="100%" height="80" frameBorder="0" allow="autoplay; encrypted-media;"></iframe>
     </div>
 </div>
 
-<div id="timer-bar" class="fixed bottom-0 left-0 w-full bg-black/90 backdrop-blur-md py-5 border-t border-zinc-900 hidden z-[100]">
+<div id="timer-bar" class="fixed bottom-0 left-0 w-full bg-black/95 backdrop-blur-md py-5 border-t border-zinc-900 hidden z-[100]">
     <div id="timer" class="text-[11px] text-red-600 font-bold tracking-[0.3em] font-mono uppercase text-center w-full"></div>
 </div>
 
@@ -173,39 +154,16 @@
         document.getElementById('spotify-player').classList.remove('hidden');
         document.getElementById('hint-text').innerText = "HI BABYYYYY!";
         
-        const duration = 15 * 1000;
-        const animationEnd = Date.now() + duration;
+        const end = Date.now() + (15 * 1000);
+        const colors = ['#b91c1c', '#f472b6', '#7f1d1d'];
 
         (function frame() {
-            const timeLeft = animationEnd - Date.now();
-            if (timeLeft <= 0) return;
-
-            // NO BLUE - Only Red and Pink
-            confetti({ 
-                particleCount: 2, 
-                angle: 60, 
-                spread: 55, 
-                origin: { x: 0 }, 
-                colors: ['#b91c1c', '#f472b6', '#7f1d1d', '#dc2626']
-            });
-            confetti({ 
-                particleCount: 2, 
-                angle: 120, 
-                spread: 55, 
-                origin: { x: 1 }, 
-                colors: ['#b91c1c', '#f472b6', '#7f1d1d', '#dc2626'] 
-            });
-            
+            confetti({ particleCount: 2, angle: 60, spread: 55, origin: { x: 0 }, colors: colors });
+            confetti({ particleCount: 2, angle: 120, spread: 55, origin: { x: 1 }, colors: colors });
             if(Math.random() > 0.8) {
-                confetti({ 
-                    particleCount: 1, 
-                    shapes: ['text'], 
-                    shapeOptions: { text: { value: ['❤️','🌹','💖'] } }, 
-                    origin: { y: 0.75 }, 
-                    scalar: 2.5 
-                });
+                confetti({ particleCount: 1, shapes: ['text'], shapeOptions: { text: { value: ['❤️','🌹'] } }, origin: { y: 0.8 }, scalar: 2 });
             }
-            requestAnimationFrame(frame);
+            if (Date.now() < end) { requestAnimationFrame(frame); }
         }());
     }
 </script>
